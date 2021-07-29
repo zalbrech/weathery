@@ -16,6 +16,8 @@ export class WeatherDisplayComponent implements OnInit {
 
   getLondonWeather() {
     // console.log(this.weatherService.getCityWeather('London'));
+    console.log('***************');
+    console.log('London Weather');
     this.weatherService.getCityWeather('London');
     // const theTime = new Date(t * 1000).toISOString().substr(11,8);
     // const theTime = new Date().setUTCSeconds;
@@ -25,6 +27,8 @@ export class WeatherDisplayComponent implements OnInit {
 
   getNewYorkWeather() {
     // console.log(this.weatherService.getCityWeather('London'));
+    console.log('***************');
+    console.log('New York Weather');
     this.weatherService.getCityWeather('New York');
   }
 
