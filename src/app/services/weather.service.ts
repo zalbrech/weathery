@@ -56,9 +56,7 @@ export class WeatherService {
         
         console.log(this.getFormattedTime(this.theDate));
         console.log(this.getFormattedDate(this.theDate));            
-
-        
-                    
+   
       }
     )
   }
