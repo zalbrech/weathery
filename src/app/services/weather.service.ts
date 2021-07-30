@@ -87,7 +87,7 @@ export class WeatherService {
     return result;
   }
 
-  // helper method to convert 0 indexed number into Month string
+  // helper method to convert 0 indexed number into month string
   getMonthString(theMonth: number) : string {
     return this.monthStrings[theMonth];
   }

@@ -7,11 +7,13 @@ import { AppComponent } from './app.component';
 import { WeatherDisplayComponent } from './components/weather-display/weather-display.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WeatherDisplayComponent
+    WeatherDisplayComponent,
+    SearchComponent
   ],
   imports: [
     HttpClientModule,
