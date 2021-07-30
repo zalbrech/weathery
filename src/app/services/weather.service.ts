@@ -16,8 +16,6 @@ export class WeatherService {
 
   private theTemperature: number = 0;
   private theTimezone: number = 0;
-  private theLocalTime: Date = new Date(0);
-  private utcSeconds: number = 0;
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
                                    'May', 'Jun', 'Jul', 'Aug', 
@@ -32,14 +30,12 @@ export class WeatherService {
 
     const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}`;
 
-    // console.log(JSON.stringify(searchUrl));
-
     this.httpClient.get(searchUrl).subscribe(
       (data: any) => {
         console.log(data);
         this.theTemperature = data.main.temp;
         this.theTimezone = data.timezone;
-        // var localOffset = utcSeconds - this.theTimezone;
+        
         const myDate = Date.now() + this.theTimezone;
         const theTime = new Date(myDate);
         const dateTest = Date.now();
@@ -47,43 +43,24 @@ export class WeatherService {
 
         console.log('The temp is ' + this.theTemperature);
         console.log('The timezone is ' + this.theTimezone);
-        // console.log('theTime is ' + theTime);
-        // console.log('The day is ' + theTime.getDay() + ' and the date is ' + theTime.getDate());
-
-        // console.log('dateTest = ' + dateTest);
-        // console.log('myDateTest = ' + myDateTest);
-
-        // console.log('---------------');
-        // console.log(new Date((data.dt*1000)+(data.timezone*1000)));
-
-        // console.log('---------------');
-        // console.log(data.dt);
-        // console.log(Math.floor(Date.now() / 1000));
-
-        // console.log('--------------');
+        
         const localDate = new Date();
-        const theOffset = localDate.getTimezoneOffset();
-        const theOffsetMilli = (theOffset * 60000) + (this.theTimezone * 1000);
-        // console.log(localDate);
-        console.log('local date offset is ' + theOffset + ' minutes');
-        //console.log(theOffsetMilli);
+
+        const theOffsetMilli = (localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000);
+        
+        console.log('local date offset is ' + localDate.getTimezoneOffset + ' minutes');
+       
 
         this.theDate = new Date(Date.now() + theOffsetMilli);
         console.log(this.theDate);
-        console.log(this.theDate.getHours() + ':' + this.theDate.getMinutes());
         
         console.log(this.getFormattedTime(this.theDate));
-      
         console.log(this.getFormattedDate(this.theDate));            
 
         
                     
       }
     )
-
-    // return this.httpClient.get(searchUrl);
-
-    // this.httpClient.get(searchUrl).subscribe(data => console.log(data));
   }
 
   // format time output
