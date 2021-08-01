@@ -48,7 +48,7 @@ export class WeatherService {
 
         const theOffsetMilli = (localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000);
         
-        console.log('local date offset is ' + localDate.getTimezoneOffset + ' minutes');
+        console.log('local date offset is ' + localDate.getTimezoneOffset() + ' minutes');
        
 
         this.theDate = new Date(Date.now() + theOffsetMilli);

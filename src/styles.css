@@ -1,1 +1,72 @@
-/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+body{
+    font-family:Avenir,avenir-book,sans-serif;
+    font-weight:400;
+    font-size:16px;
+    line-height:1.625;
+    color:#666;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale
+}
+
+.page-wrapper{
+    overflow:hidden;
+    background:#d8d8d8;
+    padding-bottom:8vh
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-content{
+    padding-top:116px;
+    min-height:100vh
+}
+
+.au-btn-submit{
+    position:relative;
+    right:0;
+    margin-left:3px;
+    min-width:45px;
+    min-height:45px;
+    color:#fff;
+    border:1px solid #dadada;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:14px;
+    background:#205b8d
+}
+
+.au-input{
+    line-height:43px;
+    border:2px solid #205b8d;
+    font-size:14px;
+    color:#666;
+    padding:2px 17px;
+    -webkit-border-radius:14px;
+    -moz-border-radius:14px;
+    border-radius:14px;
+    -webkit-transition:all .5s ease;
+    -o-transition:all .5s ease;
+    -moz-transition:all .5s ease;
+    transition:all .5s ease
+}
+
+.au-input-xl{
+    min-width:300px
+}
+
+.bg{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+                      url('assets/images/martin.jpg');
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
