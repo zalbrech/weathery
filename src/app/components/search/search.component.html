@@ -1,0 +1,11 @@
+<div>
+    <input #myInput type="text" 
+           placeholder="Get weather for ..."
+           class="au-input au-input-xl"
+           (keyup.enter)="doSearch(myInput.value)">
+
+    <button (click)="doSearch(myInput.value)" class="au-btn-submit">
+        Search
+    </button>
+
+</div>
