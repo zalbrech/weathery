@@ -14,7 +14,8 @@ export class WeatherService {
 
   private theDate: Date = new Date(Date.now());
 
-  private theTemperature: number = 0;
+  private theTemperatureFarenheit: number = 0;
+  private theTemperatureCelsius: number = 0;
   private theTimezone: number = 0;
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
@@ -33,15 +34,15 @@ export class WeatherService {
     this.httpClient.get(searchUrl).subscribe(
       (data: any) => {
         console.log(data);
-        this.theTemperature = data.main.temp;
+        this.theTemperatureFarenheit = (data.main.temp -273.15) * 9/5 + 32;
+        this.theTemperatureCelsius = data.main.temp - 273.15;
         this.theTimezone = data.timezone;
         
-        const myDate = Date.now() + this.theTimezone;
-        const theTime = new Date(myDate);
-        const dateTest = Date.now();
-        const myDateTest = new Date(dateTest);
+        //const myDate = Date.now() + this.theTimezone;
+        //const dateTest = Date.now();
 
-        console.log('The temp is ' + this.theTemperature);
+        console.log('The temp farenheit is ' + this.theTemperatureFarenheit);
+        console.log('The temp celsius is ' + this.theTemperatureCelsius);
         console.log('The timezone is ' + this.theTimezone);
         
         const localDate = new Date();
