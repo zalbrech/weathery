@@ -9,10 +9,11 @@ import { WeatherDisplayComponent } from './components/weather-display/weather-di
 
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
+import { Weather } from './classes/weather';
 
 const routes: Routes = [
-  {path: 'weather-display', component:WeatherDisplayComponent},
-  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
+  {path: 'search' , component: SearchComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 
@@ -26,11 +27,12 @@ const routes: Routes = [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot([
-      { path: '', component: WeatherDisplayComponent },
-    ])
+    RouterModule.forRoot(routes),
   ],
-  providers: [],
+  exports: [
+    RouterModule,
+  ],
+  providers: [WeatherDisplayComponent, Weather],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

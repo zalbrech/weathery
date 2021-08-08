@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Weather } from '../classes/weather';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,10 @@ export class WeatherService {
 
   private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
 
-  private theDate: Date = new Date(Date.now());
 
   private theTemperatureFarenheit: number = 0;
-  private theTemperatureCelsius: number = 0;
-  private theTimezone: number = 0;
+
+  public theWeather = new Observable<Weather>();
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
                                    'May', 'Jun', 'Jul', 'Aug', 
@@ -25,47 +25,76 @@ export class WeatherService {
   private dayStrings:string[] = ['Sun', 'Mon', 'Tue', 'Wed',
                                  'Thu', 'Fri', 'Sat'];                            
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+    console.log('***********************\nin WeatherService constructor\n');
+    
+   }
 
-  getCityWeather(theCity: string) {
+  getWeather() {
 
+  }
+
+  getCityWeather(theCity: string): Observable<any> {
     const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}`;
-
     this.httpClient.get(searchUrl).subscribe(
-      (data: any) => {
+      data => {
         console.log(data);
-        this.theTemperatureFarenheit = (data.main.temp -273.15) * 9/5 + 32;
-        this.theTemperatureCelsius = data.main.temp - 273.15;
-        this.theTimezone = data.timezone;
-        
-        //const myDate = Date.now() + this.theTimezone;
-        //const dateTest = Date.now();
+      });
 
-        console.log('The temp farenheit is ' + this.theTemperatureFarenheit);
-        console.log('The temp celsius is ' + this.theTemperatureCelsius);
-        console.log('The timezone is ' + this.theTimezone);
-        
-        const localDate = new Date();
+    return this.httpClient.get<any>(searchUrl);
 
-        const theOffsetMilli = (localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000);
+  }
+  // getCityWeather(theCity: string): Observable<GetResponseWeather> {
+  //   console.log("getCityWeather() called");
+
+  //   const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}`;
+
+  //   // console.log(this.theJSON);
+  //   // this.httpClient.get<GetWeather>(searchUrl);
+  //   this.httpClient.get(searchUrl).subscribe(
+  //     (data: any) => {
+  //       console.log('inside httpClient.get');
+  //       console.log(data);
+  //       this.theWeather = data;
+
+
+
+  //       console.log(this.theWeather);
+  //       this.theTemperatureFarenheit = (data.main.temp -273.15) * 9/5 + 32;
+  //       this.theTemperatureCelsius = data.main.temp - 273.15;
+  //       this.theTimezone = data.timezone;
         
-        console.log('local date offset is ' + localDate.getTimezoneOffset() + ' minutes');
+  //       //const myDate = Date.now() + this.theTimezone;
+  //       //const dateTest = Date.now();
+
+  //       console.log('The temp farenheit is ' + this.theTemperatureFarenheit);
+  //       console.log('The temp celsius is ' + this.theTemperatureCelsius);
+  //       console.log('The timezone is ' + this.theTimezone);
+        
+  //       const localDate = new Date();
+
+  //       const theOffsetMilli = (localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000);
+        
+  //       console.log('local date offset is ' + localDate.getTimezoneOffset() + ' minutes');
        
 
-        this.theDate = new Date(Date.now() + theOffsetMilli);
-        console.log(this.theDate);
+  //       this.theDate = new Date(Date.now() + theOffsetMilli);
+  //       console.log(this.theDate);
         
-        console.log(this.getFormattedTime(this.theDate));
-        console.log(this.getFormattedDate(this.theDate));            
-   
-      }
-    )
-  }
+  //       console.log(this.getFormattedTime(this.theDate));
+  //       console.log(this.getFormattedDate(this.theDate));  
+        
+        
+        
+  //     }
+  //   )
+  //   return this.httpClient.get<GetResponseWeather>(searchUrl);
+  // }
 
   // format time output
   getFormattedTime(theDate: Date) : string {
-    var theHour: number = this.theDate.getHours();
-    var theMinutes: number = this.theDate.getMinutes();
+    var theHour: number = theDate.getHours();
+    var theMinutes: number = theDate.getMinutes();
 
     // insert leading 0 if needed
     if(theMinutes < 10) {
@@ -81,7 +110,7 @@ export class WeatherService {
     var theMonth: string = this.getMonthString(theDate.getMonth());
     var dayOfWeek: string = this.getDayOfWeek(theDate.getDate());
 
-    var result: string = theDay + ' ' + theMonth + ', ' + dayOfWeek;
+    var result: string = theDay + ', ' + theMonth + ' ' + dayOfWeek;
 
     return result;
   }
@@ -113,11 +142,11 @@ export class WeatherService {
   getDayString(theDay: number) : string {
     return this.dayStrings[theDay];
   }
-
-
+  
 }
 
 interface GetResponseWeather {
-
+    temp: number;
 }
+  
 

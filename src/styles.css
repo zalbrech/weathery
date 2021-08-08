@@ -16,6 +16,12 @@ body{
     padding-bottom:8vh
 }
 
+.page-wrapper-dark{
+    overflow:hidden;
+    background:#363636;
+    padding-bottom:8vh
+}
+
 .container {
     height: 100%;
     display: flex;
@@ -64,6 +70,16 @@ body{
 .bg{
     background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
                       url('assets/images/martin.jpg');
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-mountains{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+                      url('assets/images/bg-mountains.jpg');
     height: 100%;
     /* Center and scale the image nicely */
     background-position: center;
