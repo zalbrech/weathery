@@ -6,12 +6,12 @@ export class Weather {
     public theState: string = '';
     public theCountry: string = '';
     public theCurrentTemperature: number = 0;
-    public theHighTemperature = 0;
+    public theHighTemperature: number = 0;
     public theLowTemperature: number = 0;
-    public theSunrise: number = 0;
-    public theSunset: number = 0;
+    public theSunrise: string = '';
+    public theSunset: string = '';
     public theDescription: string = '';
     public theMainWeather: string = '';
     public theWindSpeed: number = 0;
-    public icon: string = '';
+    public theIcon: string = '';
 }

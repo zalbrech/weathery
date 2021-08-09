@@ -43,7 +43,6 @@ export class WeatherDisplayComponent implements OnInit {
 
     this.weatherService.getCityWeather(value).subscribe(
       data => {
-        // TODO: refactor date/time methods and call inside weather-display component
         this.theWeather = new Weather();
         // localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000
         // this.theDate = new Date(Date.now() + theOffsetMilli);
@@ -53,30 +52,35 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
         this.theWeather.theCity = data.name;
         this.theWeather.theCountry = data.sys.country;
-        
+        this.theWeather.theCurrentTemperature = data.main.temp;
+        this.theWeather.theHighTemperature = data.main.temp_max;
+        this.theWeather.theLowTemperature = data.main.temp_min;
+        this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunrise);
+        this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunset);
+        this.theWeather.theDescription = data.weather[0].description;
+        this.theWeather.theMainWeather = data.weather[0].main;
+        this.theWeather.theWindSpeed = data.wind.speed;
+        this.theWeather.theIcon = data.weather[0].icon;
 
 
-       
-        console.log(this.theWeather.theCity);
-        console.log(this.theWeather.theCountry);
         console.log(this.theWeather.theDate);
         console.log(this.theWeather.theTime);
         console.log(this.theWeather.theFormattedDateString);
+        console.log(this.theWeather.theCity);
+        console.log(this.theWeather.theCountry);
+        console.log(this.theWeather.theCurrentTemperature);
+        console.log(this.theWeather.theSunrise);
+        console.log(this.theWeather.theSunset);
+        console.log(this.theWeather.theDescription);
+        console.log(this.theWeather.theMainWeather);
+        console.log(this.theWeather.theWindSpeed);
+        console.log(this.theWeather.theIcon);
 
+        console.log(this.theWeather);
       }
     )
-    // this.weatherService.getCityWeather(value);
-    // this.weatherService.theWeather.subscribe(data => {
-    //   this.theTemperatureFarenheit = data.theTemperatureFarenheit;
-      
-    // });
-
     
-    
-    // console.log('in weather-display handleSearch => ' + this.theTemperatureFarenheit);
-    // console.log(this.theWeather);
-    
-  }
+}
 
   
 

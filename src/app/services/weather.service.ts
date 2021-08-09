@@ -104,6 +104,14 @@ export class WeatherService {
     }
   }
 
+  getFormattedUTC(theTimezone: number, value: number) : string {
+    var tempDate: Date = new Date((value * 1000));
+    var userOffset = tempDate.getTimezoneOffset() * 60000;
+    tempDate = new Date(tempDate.getTime() + userOffset + (theTimezone * 1000));
+
+    return this.getFormattedTime(tempDate);
+  }
+
   // format day of the week, month, and day
   getFormattedDate(theDate: Date) : string {
     var theDay: string = this.getDayString(theDate.getDay());
@@ -138,15 +146,11 @@ export class WeatherService {
     return theDay + theSuffix;
   }
 
-  // convert 
+  // convert number to string
   getDayString(theDay: number) : string {
     return this.dayStrings[theDay];
   }
-  
+
 }
 
-interface GetResponseWeather {
-    temp: number;
-}
-  
 
