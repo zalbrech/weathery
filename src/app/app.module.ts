@@ -10,6 +10,8 @@ import { WeatherDisplayComponent } from './components/weather-display/weather-di
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
 import { Weather } from './classes/weather';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
   {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
@@ -21,7 +23,9 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     WeatherDisplayComponent,
-    SearchComponent
+    SearchComponent,
+    ThemeToggleComponent,
+    HeaderComponent
   ],
   imports: [
     HttpClientModule,

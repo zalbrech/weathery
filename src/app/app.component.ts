@@ -1,5 +1,7 @@
+import { Renderer2 } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +11,18 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'weathery';
 
-  constructor(private router: Router) {}
+  
+  constructor(private router: Router, private themeService: ThemeService, private renderer: Renderer2) {}
   
   ngOnInit() {
     this.router.navigateByUrl('/search');
+    
+    this.themeService.themeChanges().subscribe(theme => {
+      if(theme.oldValue) {
+        this.renderer.removeClass(document.body, theme.oldValue);
+      }
+      this.renderer.addClass(document.body, theme.newValue);
+    })
   }
   
 }

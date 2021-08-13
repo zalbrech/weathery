@@ -7,7 +7,7 @@ body{
     /* font-weight:400; */
     font-size:16px;
     line-height:1.625;
-    color:#666;
+    /* color:#666; */
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale
 }
@@ -36,23 +36,32 @@ body{
     min-height:100vh
 }
 
+.btn-primary{
+    margin-left:3px;
+    min-width:45px;
+    min-height:45px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:14px;
+
+}
 .au-btn-submit{
     position:relative;
     right:0;
     margin-left:3px;
     min-width:45px;
     min-height:45px;
-    color:#fff;
+    color: #ffffff;
     border:1px solid #dadada;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:14px;
-    background:#205b8d
+    background:#0275d8
 }
 
 .au-input{
     line-height:43px;
-    border:2px solid #205b8d;
+    border:2px solid #0275d8;
     font-size:14px;
     color:#666;
     padding:2px 17px;
@@ -87,4 +96,51 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+/* darkmode toggle */
+
+.oval {
+    position: relative;
+    margin: 10px;
+    width: 50px;
+    height: 25px;
+    border-radius: 25px;
+    background-color: #0275d8;
+    -webkit-transition: background-color 0.15s ease-in-out;
+    transition: background-color 0.15s ease-in-out;
+}
+
+.ovalSelected {
+    background: #fadc04;
+}
+
+.button {
+    position: absolute;
+    margin-top: 3px;
+    margin-left: 3px;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #f7f7f7;
+    -webkit-transition: left 0.15s ease-in-out, background-color .015s ease-in-out;
+    transition: left 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.buttonSelected {
+    left: 25px;
+    background-color: #919191;
+}
+
+
+/* dark theme */
+.bootstrap-dark { 
+    background:#333333;
+    color:#ebebeb;
+}
+
+.bootstrap {
+    background:#e4e4e4;
+    color:#333333;
 }
