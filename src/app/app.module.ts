@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +14,8 @@ import { SearchComponent } from './components/search/search.component';
 import { Weather } from './classes/weather';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './footer/footer.component';
+
 
 const routes: Routes = [
   {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
@@ -25,16 +29,20 @@ const routes: Routes = [
     WeatherDisplayComponent,
     SearchComponent,
     ThemeToggleComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     RouterModule.forRoot(routes),
+    NgbModule,
+    NgbCollapseModule
   ],
   exports: [
     RouterModule,
+    NgbModule
   ],
   providers: [WeatherDisplayComponent, Weather],
   bootstrap: [AppComponent]

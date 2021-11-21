@@ -1,11 +1,10 @@
-<div>
-    <input #myInput type="text" 
-           placeholder="Get weather for ..."
-           class="au-input au-input-xl"
-           (keyup.enter)="doSearch(myInput.value)">
+<div class="d flex">
 
-    <button (click)="doSearch(myInput.value)" class="btn btn-primary">
-        Search
+    <input #myInput type="text" placeholder="Get weather for ..." class="au-input au-input-xl"
+        (keyup.enter)="doSearch(myInput.value)">
+
+    <button type="button" class="btn btn-primary" (click)="doSearch(myInput.value)">
+        <i class="bi bi-arrow-right-circle pr-2" style="padding-right: 10px"></i>Search
     </button>
-
+    
 </div>

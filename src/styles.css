@@ -24,12 +24,12 @@ body{
     padding-bottom:8vh
 }
 
-.container {
+/* .container {
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .main-content{
     padding-top:116px;
@@ -37,20 +37,30 @@ body{
 }
 
 .btn-primary{
-    margin-left:3px;
-    min-width:45px;
-    min-height:45px;
+    margin-left:5px;
+    /* min-width:45px; */
+    min-height:30px;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:14px;
 
 }
+
+.btn-light {
+    margin-left:3px;
+    min-width:45px;
+    min-height:51px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border-radius:14px;
+}
+
 .au-btn-submit{
     position:relative;
     right:0;
     margin-left:3px;
-    min-width:45px;
-    min-height:45px;
+    /* min-width:45px; */
+    min-height:30px;
     color: #ffffff;
     border:1px solid #dadada;
     -webkit-border-radius:3px;
@@ -60,7 +70,7 @@ body{
 }
 
 .au-input{
-    line-height:43px;
+    line-height:30px;
     border:2px solid #0275d8;
     font-size:14px;
     color:#666;
@@ -75,7 +85,7 @@ body{
 }
 
 .au-input-xl{
-    min-width:300px
+    min-width:0px
 }
 
 .bg{
@@ -133,7 +143,6 @@ body{
     background-color: #919191;
 }
 
-
 /* dark theme */
 .bootstrap-dark { 
     background:#333333;
@@ -143,4 +152,29 @@ body{
 .bootstrap {
     background:#e4e4e4;
     color:#333333;
+}
+
+/* .card { 
+    background-color: rgba(245, 245, 245, 0.0); 
+    width: 100%;
+    border: 5px solid white;
+} */
+
+.inv {
+    list-style-type: none;
+    padding: 0px;
+}
+
+.bg-tran {
+    background-color: transparent
+}
+
+footer {
+    flex: 0 0 50px;
+}
+
+.footer-item {
+    font-size: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }

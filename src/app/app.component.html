@@ -1,15 +1,16 @@
-<div>
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-     
-      <!-- app-header -->
-
-      <router-outlet></router-outlet>
-
-      <app-theme-toggle></app-theme-toggle>
-
-      <p>Dark mode color test!</p>
+<div class="bg-mountains d-flex flex-column h-100">
+  <!-- <div class="d-flex flex-column h-100"> -->
+    <app-header></app-header>
+  <!-- </div> -->
   
-      <!-- app-footer -->
-    </div>
+  
+  <main class="d-flex flex-column min-vh-100 flex-shrink-0 justify-content-center align-items-center">
+    <!-- <router-outlet></router-outlet> -->
+    <app-weather-display></app-weather-display>
+  </main>
 
+  <!-- footer -->
+  <footer>
+    <app-footer></app-footer>
+  </footer>
 </div>

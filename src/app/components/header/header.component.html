@@ -1,1 +1,25 @@
-<p>header works!</p>
+<nav class="navbar navbar-dark bg-tran py-4 px-3 justify-content-space-evenly">
+  <a class="navbar-brand" href="#">
+    Weathery <small>(logo here)</small>
+  </a>
+
+  <div class="d-flex justify-content-center">
+
+    <router-outlet></router-outlet>
+
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle min-vh-50" type="button" data-bs-toggle="dropdown"
+      aria-expanded="false" (click)="toggleDropdown()">
+      <i class="bi bi-gear"></i>
+    </button>
+
+    <ul class="dropdown-menu dropdown-menu-end" [ngClass]="{ 'show': dropdownOpen }"
+      aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" href="#">Units</a></li>
+      <li><a class="dropdown-item" href="#">Time</a></li>
+      <li><a class="dropdown-item" href="#">Something else here</a></li>
+    </ul>
+  </div>
+
+</nav>
