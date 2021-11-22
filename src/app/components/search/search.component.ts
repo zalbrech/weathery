@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { WeatherService } from 'src/app/services/weather.service';
 import { WeatherDisplayComponent } from '../weather-display/weather-display.component';
 
@@ -10,12 +11,22 @@ import { WeatherDisplayComponent } from '../weather-display/weather-display.comp
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) {
+    // console.log('in SEARCH constructor');
+   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    // console.log('in SEARCH onInit()');
+
+  }
 
   doSearch(value: string) {
-    console.log(`value=${value}`);
+    // console.log(' !!!! All searches after first search start here !!!!');
+    // console.log('in WeatherService doSearch()');
+    // console.log('current value=' + this.router.url);
+    // console.log(this.route.snapshot);
+    // console.log(`new value=/weather-display/${value}`);
+
     this.router.navigateByUrl(`/weather-display/${value}`);
   }
 }

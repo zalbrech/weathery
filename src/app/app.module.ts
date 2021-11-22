@@ -36,7 +36,7 @@ const routes: Routes = [
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"}),
     NgbModule,
     NgbCollapseModule
   ],

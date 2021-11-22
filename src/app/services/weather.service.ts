@@ -13,9 +13,6 @@ export class WeatherService {
 
   private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
 
-
-  private theTemperatureFarenheit: number = 0;
-
   public theWeather = new Observable<Weather>();
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
@@ -27,6 +24,7 @@ export class WeatherService {
 
   constructor(private httpClient: HttpClient) {
     console.log('***********************\nin WeatherService constructor\n');
+    
     
    }
 

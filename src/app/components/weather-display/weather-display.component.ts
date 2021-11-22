@@ -37,6 +37,7 @@ export class WeatherDisplayComponent implements OnInit {
   }
   handleSearch(value: string) {
 
+
     // console.log('route snapshopt = ' + this.route.snapshot.paramMap.get('keyword'));
     console.log('handleSearch() method');
     var tempDate: Date = new Date();

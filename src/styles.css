@@ -48,14 +48,9 @@ body{
 
 }
 
-.btn-light {
-    margin-left:3px;
-    min-width:45px;
-    min-height:51px;
-    -webkit-border-radius:3px;
-    -moz-border-radius:3px;
-    border-radius:14px;
-}
+/* .btn-dark {
+    background: black;
+} */
 
 .au-btn-submit{
     position:relative;
