@@ -19,7 +19,7 @@ import { FooterComponent } from './footer/footer.component';
 
 const routes: Routes = [
   {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
-  {path: 'search' , component: SearchComponent},
+  // {path: 'search' , component: SearchComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
 

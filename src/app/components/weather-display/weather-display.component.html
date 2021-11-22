@@ -1,66 +1,16 @@
-<div>
-    <div class="d-flex">
-        {{theWeather.theCity}};
-    </div>
-    <!-- <div class="d-flex flex-column min-vh-100 min-vw-100 justify-content-center align-items-center">
-        <p>Weather display works!</p>
-
-        <ul style="color: rgb(235, 235, 235);">
-            <li>
-                {{ theWeather.theCity }}
-            </li>
-            <li>
-                li 2
-            </li>
-        </ul>
-
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <p>This is text inside a card body</p>
-                    </div>
-                </div>
+<div class="container-fluid bg-tran" style="width:100%">
+    <div class="row py-5 justify-content-between">
+        <!-- <div class="col-1"></div> -->
+        <div class="col-3 px-4 align-self-end align-items-center">
+            <div style="color:white; font-size: 2rem;">
+                <h1> {{theWeather.theCity}}, {{theWeather.theState}}
+                    <small>{{theWeather.theCountry}}</small></h1>
             </div>
         </div>
-    </div> -->
-
-
-    <div class="row">
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul class="inv">
-                            <li>{{ theWeather.theCurrentTemperature }} </li>
-                            <li>{{ theWeather.theHighTemperature }} </li>
-                            <li>{{ theWeather.theLowTemperature }} </li>
-                            
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-6">
-            <div class="card">
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul class="inv">
-                            <li>{{ theWeather.theTime }} </li>
-                            <li>{{ theWeather.theSunrise }} </li>
-                            <li>{{ theWeather.theSunset }} </li>
-                        </ul>
-                        
-                    </div>
-                </div>
+        <div class="col-4 align-self-end align-items-center jusify-content-end">
+            <div style="color:white">
+               <h1>{{theWeather.theFormattedDateString}} {{theWeather.theTime}}</h1> 
             </div>
         </div>
     </div>
-
-
-
 </div>
-
-<!-- </div> -->

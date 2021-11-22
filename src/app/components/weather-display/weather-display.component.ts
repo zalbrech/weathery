@@ -14,13 +14,13 @@ export class WeatherDisplayComponent implements OnInit {
 
   theTemperatureFarenheit: number = 0;
   constructor(private weatherService: WeatherService,
-              private route: ActivatedRoute,
-              public theWeather: Weather
-              ) {
-                // this.weatherService.theWeather.subscribe();
-                console.log('***********************\nin WeatherDisplay constructor\n');
-                
-               }
+    private route: ActivatedRoute,
+    public theWeather: Weather
+  ) {
+    // this.weatherService.theWeather.subscribe();
+    console.log('***********************\nin WeatherDisplay constructor\n');
+
+  }
 
   ngOnInit(): void {
     console.log('***********************\nin WeatherDisplay OnInit\n');
@@ -51,6 +51,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
         this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
         this.theWeather.theCity = data.name;
+        this.theWeather.theState = data.sys.state;
         this.theWeather.theCountry = data.sys.country;
         this.theWeather.theCurrentTemperature = data.main.temp;
         this.theWeather.theHighTemperature = data.main.temp_max;
@@ -67,6 +68,7 @@ export class WeatherDisplayComponent implements OnInit {
         console.log(this.theWeather.theTime);
         console.log(this.theWeather.theFormattedDateString);
         console.log(this.theWeather.theCity);
+        console.log(this.theWeather.theState);
         console.log(this.theWeather.theCountry);
         console.log(this.theWeather.theCurrentTemperature);
         console.log(this.theWeather.theSunrise);
@@ -79,9 +81,6 @@ export class WeatherDisplayComponent implements OnInit {
         console.log(this.theWeather);
       }
     )
-    
-}
 
-  
-
+  }
 }

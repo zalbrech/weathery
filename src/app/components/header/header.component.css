@@ -1,3 +1,10 @@
 .dropdown-menu {
     right: 0;
 }
+
+.dropdown-menu:active {
+    border:2px solid #0275d8;
+
+}
+
+.bootstrap-select{ border: 1px solid red}
