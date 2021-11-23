@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
 // import { Console } from 'console';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -15,6 +15,7 @@ export class WeatherDisplayComponent implements OnInit {
   theTemperatureFarenheit: number = 0;
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
+    private router: Router,
     public theWeather: Weather
   ) {
     // this.weatherService.theWeather.subscribe();
@@ -31,12 +32,12 @@ export class WeatherDisplayComponent implements OnInit {
 
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    // this.router.navigateByUrl('/');
     console.log(`theKeyword=${theKeyword}`);
     this.handleSearch(theKeyword);
 
   }
   handleSearch(value: string) {
-
 
     // console.log('route snapshopt = ' + this.route.snapshot.paramMap.get('keyword'));
     console.log('handleSearch() method');
