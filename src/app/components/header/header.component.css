@@ -1,3 +1,10 @@
+:host {
+    min-width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0
+}
+
 .dropdown-menu {
     right: 0;
 }
@@ -8,3 +15,7 @@
 }
 
 .bootstrap-select{ border: 1px solid red}
+
+.search-bar {
+    margin: 0 auto;
+}

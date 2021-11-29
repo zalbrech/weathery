@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
 // import { Console } from 'console';
 import { WeatherService } from 'src/app/services/weather.service';
+import { BackgroundComponent } from '../background/background.component';
 
 @Component({
   selector: 'app-weather-display',
@@ -16,7 +17,8 @@ export class WeatherDisplayComponent implements OnInit {
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
     private router: Router,
-    public theWeather: Weather
+    public theWeather: Weather,
+    private backgroundComponent: BackgroundComponent
   ) {
     // this.weatherService.theWeather.subscribe();
     console.log('***********************\nin WeatherDisplay constructor\n');
@@ -41,6 +43,7 @@ export class WeatherDisplayComponent implements OnInit {
 
     // console.log('route snapshopt = ' + this.route.snapshot.paramMap.get('keyword'));
     console.log('handleSearch() method');
+    this.backgroundComponent.ngOnInit();
     var tempDate: Date = new Date();
 
     this.weatherService.getCityWeather(value).subscribe(
@@ -48,6 +51,8 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather = new Weather();
         // localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000
         // this.theDate = new Date(Date.now() + theOffsetMilli);
+
+        
 
         this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);

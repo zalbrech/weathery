@@ -14,6 +14,18 @@ body{
     -moz-osx-font-smoothing:grayscale
 }
 
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%, -50%);
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+}
+
 .page-wrapper-light{
     overflow:hidden;
     background:#e4e4e4;
@@ -32,6 +44,13 @@ body{
     justify-content: center;
     align-items: center;
 } */
+
+.main-display {
+    position: absolute;
+    top: 160px;
+    /* left: 0; */
+    /* padding-top: 160px; */
+}
 
 .main-content{
     padding-top:116px;
@@ -87,17 +106,16 @@ body{
 
 .bg{
     background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-                      url('assets/images/martin.jpg');
+                      url('assets/images/blue-mountains.jpg');
     height: 100%;
-    /* Center and scale the image nicely */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
 .bg-mountains{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-                      url('assets/images/bg-mountains.jpg');
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                      url('assets/images/fog-forest.jpg');
     height: 100%;
     /* Center and scale the image nicely */
     background-position: center;

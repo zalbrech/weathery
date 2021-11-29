@@ -11,21 +11,12 @@ import { WeatherDisplayComponent } from '../weather-display/weather-display.comp
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private weatherDisplay: WeatherDisplayComponent) {
-    // console.log('in SEARCH constructor');
-   }
+  constructor(private router: Router, private route: ActivatedRoute, private weatherDisplay: WeatherDisplayComponent) {}
 
-  ngOnInit(): void { 
-    // console.log('in SEARCH onInit()');
-
-  }
+  ngOnInit(): void {}
 
   doSearch(value: string) {
-    // console.log(' !!!! All searches after first search start here !!!!');
     console.log('in SEARCH doSearch()');
-    // console.log('current value=' + this.router.url);
-    // console.log(this.route.snapshot);
-    // console.log(`new value=/weather-display/${value}`);
 
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigateByUrl(`/weather-display/${value}`));

@@ -14,7 +14,8 @@ import { SearchComponent } from './components/search/search.component';
 import { Weather } from './classes/weather';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { BackgroundComponent } from './components/background/background.component';
 
 
 const routes: Routes = [
@@ -30,7 +31,8 @@ const routes: Routes = [
     SearchComponent,
     ThemeToggleComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BackgroundComponent
   ],
   imports: [
     HttpClientModule,
@@ -44,7 +46,7 @@ const routes: Routes = [
     RouterModule,
     NgbModule
   ],
-  providers: [WeatherDisplayComponent, Weather],
+  providers: [WeatherDisplayComponent, Weather, BackgroundComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

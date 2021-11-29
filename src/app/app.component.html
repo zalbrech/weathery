@@ -1,14 +1,19 @@
-<div class="bg-mountains d-flex flex-column min-vh-100">
-    <app-header></app-header>
+<div class="d-flex flex-column min-vh-100">
+  <app-background></app-background>
+
+  <app-header></app-header>
   
   
-  <main class="d-flex flex-shrink-0 justify-content-center align-items-center">
+  <main class="d-flex flex-shrink-0 min-vw-100 justify-content-center align-items-center centered main-display">
     <div class="container-fluid">
       <router-outlet></router-outlet>
     </div>
   </main>
 
-  <footer class="mt-auto">
+  <footer class="mt-auto footer">
     <app-footer></app-footer>
   </footer>
+
+
 </div>
+
