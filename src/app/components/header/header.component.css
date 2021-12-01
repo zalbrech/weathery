@@ -5,8 +5,12 @@
     left: 0
 }
 
-.dropdown-menu {
+.dropdown-menu-end {
     right: 0;
+}
+
+.dropdown-item {
+    text-align: center;
 }
 
 .dropdown-menu:active {
