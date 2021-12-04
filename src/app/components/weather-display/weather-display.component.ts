@@ -11,9 +11,10 @@ import { BackgroundComponent } from '../background/background.component';
   styleUrls: ['./weather-display.component.css']
 })
 export class WeatherDisplayComponent implements OnInit {
-
-
+  
+  isLoaded = false;
   theTemperatureFarenheit: number = 0;
+
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
     private router: Router,
@@ -30,11 +31,12 @@ export class WeatherDisplayComponent implements OnInit {
     this.route.paramMap.subscribe(() => {
       this.getWeather();
     });
+
+    // console.log(this.theIconPath);
   }
 
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
-    // this.router.navigateByUrl('/');
     console.log(`theKeyword=${theKeyword}`);
     this.handleSearch(theKeyword);
 
@@ -52,8 +54,6 @@ export class WeatherDisplayComponent implements OnInit {
         // localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000
         // this.theDate = new Date(Date.now() + theOffsetMilli);
 
-        
-
         this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
         this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
@@ -69,7 +69,9 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theMainWeather = data.weather[0].main;
         this.theWeather.theWindSpeed = data.wind.speed;
         this.theWeather.theIcon = data.weather[0].icon;
+        this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
 
+        this.isLoaded = true;
 
         console.log(this.theWeather.theDate);
         console.log(this.theWeather.theTime);
@@ -84,6 +86,7 @@ export class WeatherDisplayComponent implements OnInit {
         console.log(this.theWeather.theMainWeather);
         console.log(this.theWeather.theWindSpeed);
         console.log(this.theWeather.theIcon);
+        console.log(this.theWeather.theIconPath);
 
         console.log(this.theWeather);
       }

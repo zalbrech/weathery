@@ -1,15 +1,25 @@
-<div class="container-fluid bg-tran" style="width:100%">
-    <div class="row py-5 justify-content-space-evenly">
-        <!-- <div class="col-1"></div> -->
-
+<div *ngIf="isLoaded" class="container bg-tran">
+    <div class="row py-6 justify-content-space-evenly align-items-center">
         <div class="container-fluid text-end w-50" style="color:white; font-size: 2rem;">
             <h1 class="text-right">
                 {{theWeather.theCity}}, {{theWeather.theState}}
                 <small>{{theWeather.theCountry}}</small>
             </h1>
         </div>
-        <div class="container-fluid text-start w-50" style="color:white; font-size: 2rem;">
+        <div class="container-fluid text-start w-50" style="color:white; font-size: 1.5rem;">
             <small>{{theWeather.theFormattedDateString}} {{theWeather.theTime}}</small>
+        </div>
+    </div>
+
+    <div class="row py-3 justify-content-center">
+        <div class="col-4 align-self-center text-center" style="color:white; font-size: 3rem;">
+            {{theWeather.theCurrentTemperature}}°K
+        </div>
+    </div>
+    <div class="container justify-content-center">
+        <div class="container text-center" style="color:white; font-size: 1.25rem">
+            <img [src]="theWeather.theIconPath" class="weather-icon img-fluid" alt="Responsive image">
+            {{theWeather.theDescription}}
         </div>
     </div>
 </div>
