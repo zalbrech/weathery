@@ -13,6 +13,8 @@ export class WeatherService {
 
   private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
 
+  private theUnits = '&units=imperial';
+
   public theWeather = new Observable<Weather>();
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
@@ -33,7 +35,7 @@ export class WeatherService {
   }
 
   getCityWeather(theCity: string): Observable<any> {
-    const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}`;
+    const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}${this.theUnits}`;
     this.httpClient.get(searchUrl).subscribe(
       data => {
         console.log(data);
