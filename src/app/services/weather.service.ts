@@ -46,15 +46,23 @@ export class WeatherService {
   }
 
   // format time output
-  getFormattedTime(theDate: Date) : string {
+  getFormattedTime(theDate: Date): string {
     var theHour: number = theDate.getHours();
     var theMinutes: number = theDate.getMinutes();
 
+    var theMerides: string = " AM";
+
+    // check for AM || PM
+    if(theHour > 12) {
+      theHour -= 12;
+      theMerides = " PM";
+    }
+
     // insert leading 0 if needed
     if(theMinutes < 10) {
-      return theHour + ":0" + theMinutes;
+      return theHour + ":0" + theMinutes + theMerides;
     } else {
-      return theHour + ":" + theMinutes;
+      return theHour + ":" + theMinutes + theMerides;
     }
   }
 

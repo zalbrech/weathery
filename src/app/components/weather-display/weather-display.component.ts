@@ -23,7 +23,6 @@ export class WeatherDisplayComponent implements OnInit {
   ) {
     // this.weatherService.theWeather.subscribe();
     console.log('***********************\nin WeatherDisplay constructor\n');
-
   }
 
   ngOnInit(): void {
@@ -32,7 +31,7 @@ export class WeatherDisplayComponent implements OnInit {
       this.getWeather();
     });
 
-    // console.log(this.theIconPath);
+    this.getLocalTime();
   }
 
   getWeather() {
@@ -45,7 +44,8 @@ export class WeatherDisplayComponent implements OnInit {
 
     // console.log('route snapshopt = ' + this.route.snapshot.paramMap.get('keyword'));
     console.log('handleSearch() method');
-    this.backgroundComponent.ngOnInit();
+    // this.backgroundComponent.ngOnInit();
+    this.backgroundComponent.changeBackground();
     var tempDate: Date = new Date();
 
     this.weatherService.getCityWeather(value).subscribe(
@@ -92,5 +92,11 @@ export class WeatherDisplayComponent implements OnInit {
       }
     )
 
+  }
+
+  getLocalTime() {
+    let localDate = new Date();
+    console.log("THE LOCAL DATE IS " + localDate);
+    return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, {day:'2-digit',timeZoneName: 'long' }).substring(4);
   }
 }
