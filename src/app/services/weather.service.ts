@@ -25,9 +25,8 @@ export class WeatherService {
                                  'Thu', 'Fri', 'Sat'];                            
 
   constructor(private httpClient: HttpClient) {
-    console.log('***********************\nin WeatherService constructor\n');
+    // console.log('***********************\nin WeatherService constructor\n');
 
-    
    }
 
   getWeather() {
@@ -42,7 +41,6 @@ export class WeatherService {
       });
 
     return this.httpClient.get<any>(searchUrl);
-
   }
 
   // format time output

@@ -16,13 +16,6 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     this.router.navigateByUrl('/search');
-    
-    this.themeService.themeChanges().subscribe(theme => {
-      if(theme.oldValue) {
-        this.renderer.removeClass(document.body, theme.oldValue);
-      }
-      this.renderer.addClass(document.body, theme.newValue);
-    })
-  }
+    }
   
 }

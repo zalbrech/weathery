@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-background',
@@ -8,53 +8,53 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class BackgroundComponent implements OnInit {
 
-  backgroundImageStyle: any;
-  backgroundImage: string = "";
   isLoaded = false;
-  private backgrounds:string[];
-  value:string = "";
-  myPath:string = "assets/images/";
 
-  constructor(private sanitizer: DomSanitizer) {
-    this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg"];
-    this.value=this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
-    console.log("BACKGROUND CONSTRUCTOR");
-   }
+  // private backgrounds: string[];
+  value: string = "";
+  myPath: string = "assets/images/";
+
+  message:string = "";
+
+
+  constructor(public themeService: ThemeService) {
+    // this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg", "sunny-field.jpg"];
+    // this.message = this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
+    // console.log("BACKGROUND CONSTRUCTOR");
+
+  }
 
   ngOnInit(): void {
+    // this.setBackground();
     this.isLoaded = false;
-    console.log("BACKGROUND ngOnInit()");
-    this.value=this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
-    console.log('the new value is ' + this.value);
-    this.isLoaded = true;
+    this.themeService.currentMessage.subscribe(message => this.message = message);
+    this.isLoaded =  true;
 
-    // this.backgroundImageStyle = this.changeBackground();
   }
 
-  changeBackground() {
-    console.log("BACKGROUND changeBackground()")
-    var index:number = Math.floor(Math.random() * this.backgrounds.length); 
-    this.value = (this.backgrounds[index]);
-    console.log(this.value);
+  // changeBackground(theBackground: string) {
+  //   console.log('the current background is ' + this.value);
+  //   console.log('the new background will be ' + theBackground);
+  //   this.value = theBackground;
 
-    this.backgroundImage = this.myPath + this.value;
-
-    const style = `background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${this.backgroundImage})`;
-
-    // return this.sanitizer.bypassSecurityTrustStyle(style);
-    // this.ngOnInit();
-  }
-
-  // setBackground() {
-    
+  //   return this.value;
   // }
 
-  getBackground() {
-    return this.value;
-  }
+  // setBackground() {
+  //   this.isLoaded = false;
+  //   console.log("BACKGROUND setBackground()");
+  //   this.value = this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
+  //   console.log('the new value is ' + this.value);
+  //   this.isLoaded = true;
 
-  setValue(newValue:string) {
-    this.value = newValue;
-  }
+  // }
+
+  // getBackground() {
+  //   return this.value;
+  // }
+
+  // setValue(newValue: string) {
+  //   this.value = newValue;
+  // }
 
 }

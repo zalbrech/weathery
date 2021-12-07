@@ -18,14 +18,6 @@ export class ThemeToggleComponent implements OnInit {
   }
 
   toggleTheme() {
-    if (this.theme === 'bootstrap') {
-      this.theme = 'bootstrap-dark';
-    } else {
-      this.theme = 'bootstrap';
-    }
-
-    this.themeService.setTheme(this.theme);
-
   }
 
 }

@@ -15,5 +15,6 @@ export class Weather {
     public theWindSpeed: number = 0;
     public theIcon: string = '';
     public theIconPath: string = "assets/images/weather-icons/"; 
+    public theBackground: string = '';
 
 }

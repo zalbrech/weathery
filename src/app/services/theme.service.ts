@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Observable } from 'rxjs';
 
 export interface ThemeObject {
@@ -12,27 +12,22 @@ export interface ThemeObject {
 })
 export class ThemeService {
 
-  initialSetting: ThemeObject = {
-    oldValue: null,
-    newValue: 'bootstrap'
-  };
+  private backgrounds:string[] = [];
+  myPath: string = "assets/images/";
 
-  white: string = "#ffffff";
-  black: string = "#141313";
+  private messageSource;
+  currentMessage;
 
-  themeSelection: BehaviorSubject<ThemeObject> = new BehaviorSubject<ThemeObject>(this.initialSetting);
-  
-  constructor() { }
+  private myMethodSubject = new Subject<any>();
 
-  setTheme(theme: string) {
-    this.themeSelection.next(
-      {
-        oldValue: this.themeSelection.value.newValue,
-        newValue: theme
-      });
+  constructor() {
+    this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg", "sunny-field.jpg"];
+    this.messageSource = new BehaviorSubject<string>(this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)]);
+    this.currentMessage = this.messageSource.asObservable();
   }
 
-  themeChanges(): Observable<ThemeObject> {
-    return this.themeSelection.asObservable();
+  changeMessage(message: string) {
+    this.messageSource.next(message);
   }
 }
+
