@@ -50,10 +50,19 @@ export class WeatherService {
 
     var theMerides: string = " AM";
 
-    // check for AM || PM
+    // AM / PM formatting    
+
+    if(theHour == 12) {
+      theMerides = " PM";
+    }
+    
     if(theHour > 12) {
       theHour -= 12;
       theMerides = " PM";
+    }
+
+    if(theHour == 0) {
+      theHour = 12;
     }
 
     // insert leading 0 if needed
