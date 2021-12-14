@@ -1,4 +1,4 @@
-<div *ngIf="isLoaded" class="container bg-tran">
+<div *ngIf="isLoaded" class="container bg-tran mx-auto justify-content-center">
     <div class="row py-6 justify-content-space-evenly align-items-baseline">
         <div class="col-6 text-end" style="color:white; font-size: 2rem;">
             <h1 class="text-right">
@@ -26,5 +26,10 @@
         <div class="container text-center" style="color:white; font-size: 1.25rem">
             {{theWeather.theDescription}}
         </div>
+    </div>
+
+    <div class="container">
+        <img src="assets/images/sunrise-icon.png" class="sun-icon img-fluid mx-4" alt="sunrise icon">
+        <img src="assets/images/sunset-icon.png" class="sun-icon img-fluid mx-4" alt="sunset icon">
     </div>
 </div>

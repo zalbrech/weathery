@@ -8,3 +8,8 @@
     background-attachment: fixed;
     background-position: center; 
 }
+
+.sun-icon {
+    width: 6rem;
+    height: 3rem;
+}

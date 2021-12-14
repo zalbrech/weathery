@@ -7,3 +7,8 @@
     background-repeat: no-repeat;
     background-size: cover;;
 }
+
+.fade-in {
+	-webkit-animation: fade-in 1.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+	        animation: fade-in 1.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}

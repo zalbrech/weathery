@@ -1,10 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+ } from '@angular/animations';
 
 @Component({
   selector: 'app-background',
   templateUrl: './background.component.html',
-  styleUrls: ['./background.component.css']
+  styleUrls: ['./background.component.css'],
+  animations: [
+    // animations go here
+  ]
 })
 export class BackgroundComponent implements OnInit {
 

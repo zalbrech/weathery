@@ -5,8 +5,9 @@
     left: 0
 }
 
-.dropdown-menu-end {
-    right: 0;
+.dropdown-menu {
+    position: absolute;
+    right: 1.45rem;
 }
 
 .dropdown-item {
@@ -15,7 +16,6 @@
 
 .dropdown-menu:active {
     border:2px solid #0275d8;
-
 }
 
 .bootstrap-select{ border: 1px solid red}

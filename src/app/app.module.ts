@@ -17,6 +17,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BackgroundComponent } from './components/background/background.component';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 
 const routes: Routes = [
   {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
@@ -37,6 +39,7 @@ const routes: Routes = [
   imports: [
     HttpClientModule,
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"}),
     NgbModule,

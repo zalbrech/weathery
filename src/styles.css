@@ -26,18 +26,6 @@ body{
     bottom: 0;
 }
 
-.page-wrapper-light{
-    overflow:hidden;
-    background:#e4e4e4;
-    padding-bottom:8vh
-}
-
-.page-wrapper-dark{
-    overflow:hidden;
-    background:#333333;
-    padding-bottom:8vh
-}
-
 /* .container {
     height: 100%;
     display: flex;
@@ -46,10 +34,8 @@ body{
 } */
 
 .main-display {
-    position: absolute;
-    top: 14rem;
-    /* left: 0; */
-    /* padding-top: 160px; */
+    position: fixed;
+    top: 16rem;
 }
 
 .main-content{
@@ -104,27 +90,7 @@ body{
     min-width:0px
 }
 
-.bg{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
-                      url('assets/images/blue-mountains.jpg');
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.bg-mountains{
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                      url('assets/images/fog-forest.jpg');
-    height: 100%;
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 /* darkmode toggle */
-
 .oval {
     position: relative;
     margin: 10px;
@@ -158,22 +124,6 @@ body{
     background-color: #919191;
 }
 
-/* dark theme */
-.bootstrap-dark { 
-    background:#333333;
-    color:#ebebeb;
-}
-
-.bootstrap {
-    background:#e4e4e4;
-    color:#333333;
-}
-
-/* .card { 
-    background-color: rgba(245, 245, 245, 0.0); 
-    width: 100%;
-    border: 5px solid white;
-} */
 
 .inv {
     list-style-type: none;
