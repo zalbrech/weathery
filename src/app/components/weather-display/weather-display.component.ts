@@ -1,3 +1,4 @@
+import { isFormattedError } from '@angular/compiler';
 import { Component, ComponentFactoryResolver, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
@@ -33,20 +34,62 @@ export class WeatherDisplayComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log('***********************\nin WeatherDisplay OnInit\n');
+    this.getLocalTime();
     this.route.paramMap.subscribe(() => {
       this.getWeather();
     });
 
-    this.getLocalTime();
+    
     this.themeService.currentMessage.subscribe(message => this.message = message);
   }
 
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    // input validation
+    if(theKeyword.includes(",")) 
+    {
+      const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
+      let arr: string[] = theTrimmedKeyword.split(",");
+
+      
+      let theCity;
+      let theState;
+      let theCountry;
+
+      // city weather
+      if(arr.length < 2)
+      {
+        theCity = arr[0];
+        this.handleCitySearch(theCity);
+      }
+
+      if(arr.length < 3) {
+        theCity = arr[0];
+
+      }
+
+    }
     // console.log(`theKeyword=${theKeyword}`);
     this.handleSearch(theKeyword);
 
   }
+
+  handleCitySearch(theCity: string) {
+
+  }
+
+  handleCityCountrySearch(theCity: string, theCountry: string) {
+
+  }
+
+  handleCityStateSearch(theCity: string, theState: string) {
+
+  }
+
+  handleCityStateCountrySearch(theCity: string, theState: string, theCountry: string) {
+
+  }
+
   handleSearch(value: string) {
 
     // console.log('handleSearch() method');
@@ -101,6 +144,10 @@ export class WeatherDisplayComponent implements OnInit {
         this.isLoaded = true;
       }
     )
+
+  }
+
+  populateFields() {
 
   }
 
