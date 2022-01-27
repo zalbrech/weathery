@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 export interface ThemeObject {
   oldValue: any;
@@ -18,12 +17,13 @@ export class ThemeService {
   private messageSource;
   currentMessage;
 
-  private myMethodSubject = new Subject<any>();
+  // private myMethodSubject = new Subject<any>();
 
   constructor() {
     this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg", "sunny-field.jpg"];
     this.messageSource = new BehaviorSubject<string>(this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)]);
     this.currentMessage = this.messageSource.asObservable();
+    console.log('in theme service');
   }
 
   changeMessage(message: string) {

@@ -1,7 +1,6 @@
-import { Injectable, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Weather } from '../classes/weather';
 
 @Injectable({
@@ -25,7 +24,7 @@ export class WeatherService {
                                  'Thu', 'Fri', 'Sat'];                            
 
   constructor(private httpClient: HttpClient) {
-    // console.log('***********************\nin WeatherService constructor\n');
+    console.log('***********************\nin WeatherService constructor\n');
 
    }
 

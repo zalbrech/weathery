@@ -2,6 +2,7 @@ import { isFormattedError } from '@angular/compiler';
 import { Component, ComponentFactoryResolver, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
+import { DataService } from 'src/app/services/data.service';
 import { ThemeService } from 'src/app/services/theme.service';
 // import { Console } from 'console';
 import { WeatherService } from 'src/app/services/weather.service';
@@ -25,7 +26,8 @@ export class WeatherDisplayComponent implements OnInit {
     private router: Router,
     public theWeather: Weather,
     private backgroundComponent: BackgroundComponent,
-    public themeService: ThemeService
+    public themeService: ThemeService,
+    public dataService: DataService
   ) {
     // this.weatherService.theWeather.subscribe();
     // console.log('***********************\nin WeatherDisplay constructor\n');
