@@ -8,6 +8,7 @@
 .dropdown-menu {
     position: absolute;
     right: 1.45rem;
+    border: 1px white;
 }
 
 .dropdown-item {
