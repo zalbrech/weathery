@@ -21,6 +21,9 @@ export class WeatherDisplayComponent implements OnInit {
 
   message:string = "";
 
+  numRegex = new RegExp(/\d/g);
+  zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
+
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
     private router: Router,
@@ -47,6 +50,19 @@ export class WeatherDisplayComponent implements OnInit {
 
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+
+    // check if input contains digits, if so search input as zip code
+    // zip code only for United States
+    if(this.numRegex.test(theKeyword)) {
+      if(this.zipRegex.test(theKeyword)) {
+        console.log('zip code entered');
+      } else {
+        // redirect to 404 page
+        this.router.navigateByUrl('/');
+      }
+    }
+    
+
     // input validation
     if(theKeyword.includes(",")) 
     {
@@ -57,7 +73,7 @@ export class WeatherDisplayComponent implements OnInit {
       let theCity;
       let theState;
       let theCountry;
-
+      
       // city weather
       if(arr.length < 2)
       {

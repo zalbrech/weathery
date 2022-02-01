@@ -25,6 +25,12 @@ export class DataService {
       'MP', 'PR', 'UM', 'VI' 
     ]);
 
-    console.log(this.states.size);
+    // console.log(this.states.size);
+  }
+
+  isState(value: string) : boolean {
+      if(this.states.has(value)) {
+        return true;
+      } else return false;
   }
 }
