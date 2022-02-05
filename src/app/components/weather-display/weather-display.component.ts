@@ -14,12 +14,12 @@ import { BackgroundComponent } from '../background/background.component';
   styleUrls: ['./weather-display.component.css']
 })
 export class WeatherDisplayComponent implements OnInit {
-  
+
   isLoaded = false;
   theTemperatureFarenheit: number = 0;
-  private backgrounds:string[];
+  private backgrounds: string[];
 
-  message:string = "";
+  message: string = "";
 
   numRegex = new RegExp(/\d/g);
   zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
@@ -44,7 +44,7 @@ export class WeatherDisplayComponent implements OnInit {
       this.getWeather();
     });
 
-    
+
     this.themeService.currentMessage.subscribe(message => this.message = message);
   }
 
@@ -53,42 +53,41 @@ export class WeatherDisplayComponent implements OnInit {
 
     // check if input contains digits, if so search input as zip code
     // zip code only for United States
-    if(this.numRegex.test(theKeyword)) {
-      if(this.zipRegex.test(theKeyword)) {
+    if (this.numRegex.test(theKeyword)) {
+      if (this.zipRegex.test(theKeyword)) {
         console.log('zip code entered');
+        this.handleZipSearch(theKeyword.substring(0, 5));
       } else {
         // redirect to 404 page
         this.router.navigateByUrl('/');
       }
-    }
-    
+    } else {
 
-    // input validation
-    if(theKeyword.includes(",")) 
-    {
-      const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
-      let arr: string[] = theTrimmedKeyword.split(",");
+      // input validation
+      if (theKeyword.includes(",")) {
+        const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
+        let arr: string[] = theTrimmedKeyword.split(",");
 
-      
-      let theCity;
-      let theState;
-      let theCountry;
-      
-      // city weather
-      if(arr.length < 2)
-      {
-        theCity = arr[0];
-        this.handleCitySearch(theCity);
+
+        let theCity;
+        let theState;
+        let theCountry;
+
+        // city weather
+        if (arr.length < 2) {
+          theCity = arr[0];
+          this.handleCitySearch(theCity);
+        }
+
+        if (arr.length < 3) {
+          theCity = arr[0];
+        }
       }
 
-      if(arr.length < 3) {
-        theCity = arr[0];
-
-      }
-
+      this.handleSearch(theKeyword);
     }
     // console.log(`theKeyword=${theKeyword}`);
-    this.handleSearch(theKeyword);
+
 
   }
 
@@ -108,6 +107,12 @@ export class WeatherDisplayComponent implements OnInit {
 
   }
 
+  handleZipSearch(theZipCode: string) {
+    // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key} 
+    this.handleSearch(theZipCode + ',US');
+
+  }
+
   handleSearch(value: string) {
 
     // console.log('handleSearch() method');
@@ -116,8 +121,6 @@ export class WeatherDisplayComponent implements OnInit {
     this.weatherService.getCityWeather(value).subscribe(
       data => {
         this.theWeather = new Weather();
-        // localDate.getTimezoneOffset() * 60000) + (this.theTimezone * 1000
-        // this.theDate = new Date(Date.now() + theOffsetMilli);
 
         this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
@@ -139,8 +142,6 @@ export class WeatherDisplayComponent implements OnInit {
 
 
         this.newMessage();
-        // this.backgroundComponent.changeBackground(this.theWeather.theBackground);
-        
 
         // console.log(this.theWeather.theDate);
         // console.log(this.theWeather.theTime);
@@ -165,18 +166,18 @@ export class WeatherDisplayComponent implements OnInit {
 
   }
 
-  populateFields() {
+  populateFields(tempDate: Date,) {
 
   }
 
   getLocalTime() {
     let localDate = new Date();
-    return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, {day:'2-digit',timeZoneName: 'long' }).substring(4);
+    return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' }).substring(4);
   }
 
   newMessage() {
     let basePath: string = "assets/images/";
-    var index:number = Math.floor(Math.random() * this.backgrounds.length); 
+    var index: number = Math.floor(Math.random() * this.backgrounds.length);
     this.themeService.changeMessage(basePath + this.backgrounds[index]);
   }
 
