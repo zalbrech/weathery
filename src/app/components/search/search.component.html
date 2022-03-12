@@ -1,7 +1,18 @@
 <div class="d flex justify-content-center">
 
+    <ng-template #tipContent> Search by: <br>
+                              <ul class="dashed">
+                                <li>city</li>
+                                <li>city, state </li>
+                                <li>zip code <b>(US only)</b></li>
+                              </ul>
+    </ng-template>
+
     <input #myInput type="text" placeholder="Get weather for ..." class="au-input au-input-xl"
-        (keyup.enter)="doSearch(myInput.value)">
+        (keyup.enter)="doSearch(myInput.value)" 
+        [ngbTooltip] = tipContent
+        placement="bottom"
+        [openDelay]="400" [closeDelay]="700">
 
     <button type="button" class="btn btn-primary" (click)="doSearch(myInput.value)">
         <i class="bi bi-arrow-right-circle pr-2" style="padding-right: 10px"></i>Search

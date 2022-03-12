@@ -63,7 +63,7 @@ export class WeatherDisplayComponent implements OnInit {
       }
     } else {
 
-      // input validation
+      // parse input
       if (theKeyword.includes(",")) {
         const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
         let arr: string[] = theTrimmedKeyword.split(",");
@@ -108,9 +108,7 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   handleZipSearch(theZipCode: string) {
-    // api.openweathermap.org/data/2.5/weather?zip={zip code},{country code}&appid={API key} 
     this.handleSearch(theZipCode + ',US');
-
   }
 
   handleSearch(value: string) {

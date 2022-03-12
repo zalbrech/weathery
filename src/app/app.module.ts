@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltip, NgbTooltipConfig, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -43,13 +43,14 @@ const routes: Routes = [
     AppRoutingModule,
     RouterModule.forRoot(routes, {onSameUrlNavigation: "reload"}),
     NgbModule,
-    NgbCollapseModule
+    NgbCollapseModule,
+    NgbTooltipModule
   ],
   exports: [
     RouterModule,
     NgbModule
   ],
-  providers: [WeatherDisplayComponent, Weather, BackgroundComponent],
+  providers: [WeatherDisplayComponent, Weather, BackgroundComponent, NgbTooltipConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
