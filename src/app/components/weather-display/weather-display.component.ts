@@ -51,6 +51,9 @@ export class WeatherDisplayComponent implements OnInit {
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
 
+    if(theKeyword.length < 1) {
+      return;
+    }
     // check if input contains digits, if so search input as zip code
     // zip code only for United States
     if (this.numRegex.test(theKeyword)) {
