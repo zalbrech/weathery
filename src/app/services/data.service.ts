@@ -28,7 +28,7 @@ export class DataService {
     // console.log(this.states.size);
   }
 
-  isState(value: string) : boolean {
+  isUSState(value: string) : boolean {
       if(this.states.has(value)) {
         return true;
       } else return false;

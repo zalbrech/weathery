@@ -33,6 +33,7 @@ export class WeatherService {
   }
 
   getCityWeather(theCity: string): Observable<any> {
+    console.log('searching weather for ' + theCity);
     const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}${this.theUnits}`;
     this.httpClient.get(searchUrl).subscribe(
       data => {

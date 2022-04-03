@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
 import { DataService } from 'src/app/services/data.service';
 import { ThemeService } from 'src/app/services/theme.service';
-// import { Console } from 'console';
 import { WeatherService } from 'src/app/services/weather.service';
 import { BackgroundComponent } from '../background/background.component';
 
@@ -23,6 +22,7 @@ export class WeatherDisplayComponent implements OnInit {
 
   numRegex = new RegExp(/\d/g);
   zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
+  delimiterRegex = new RegExp('[\s,]');
 
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
@@ -62,29 +62,79 @@ export class WeatherDisplayComponent implements OnInit {
         this.router.navigateByUrl('/');
       }
     } else {
-
       // parse input
-      if (theKeyword.includes(",")) {
-        const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
-        let arr: string[] = theTrimmedKeyword.split(",");
+      var begin: number = 0, end: number;
 
-
-        let theCity;
-        let theState;
-        let theCountry;
-
-        // city weather
-        if (arr.length < 2) {
-          theCity = arr[0];
-          this.handleCitySearch(theCity);
-        }
-
-        if (arr.length < 3) {
-          theCity = arr[0];
-        }
+      // test for incorrectly entered non=letters at beginning of string
+      // this method currently only works for Latin based languages
+      while (!this.isLetter(theKeyword.charAt(begin))) {
+        begin++;
       }
 
-      this.handleSearch(theKeyword);
+      let list = new Array();
+
+      for (end = begin; end < theKeyword.length; end++) {
+        if (theKeyword.charAt(end) == ',') {
+          console.log('delimiter found');
+          if(theKeyword.substring(begin,end).length > 1) {
+            list.push(theKeyword.substring(begin,end).trim());
+          }
+          begin = ++end;
+        }
+      }
+      // add last word of input string to list as long as it is not a comma or space
+      // duplicate code - plan to fold into if statement inside for loop
+      if (!this.delimiterRegex.test(theKeyword.substring(begin,end))) {
+        list.push(theKeyword.substring(begin,end).trim());
+      }
+
+      for(let i = 0; i < list.length; i++) {
+        console.log(list[i]);
+      }
+
+      let theCity: string;
+      let theState: string;
+      let theCountry: string;
+
+      // only city name entered
+      if(list.length < 2) {
+        this.handleSearch(theKeyword);
+      } else if (list.length < 3) {
+        theCity = list[0];
+        if(this.dataService.isUSState(list[1])) {
+          console.log(list[1] + ' is a US state');
+          theState = list[1];
+          this.handleSearch(theCity + ',' + theState + ',' + 'US');
+        } else {
+          this.handleSearch(theCity + ',' + list[1]);
+        }
+      } else {
+        this.handleSearch(list[0] + ',' + list[1] + ',' + list[2]);
+      }
+
+      // parse input
+      // if (theKeyword.includes(",")) {
+      //   const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
+      //   console.log(theTrimmedKeyword);
+      //   let arr: string[] = theTrimmedKeyword.split(",");
+
+
+      //   let theCity;
+      //   let theState;
+      //   let theCountry;
+
+      //   // city weather
+      //   if (arr.length < 2) {
+      //     theCity = arr[0];
+      //     this.handleCitySearch(theCity);
+      //   }
+
+      //   if (arr.length < 3) {
+      //     theCity = arr[0];
+      //   }
+      // }
+
+      // this.handleSearch(theKeyword);
     }
     // console.log(`theKeyword=${theKeyword}`);
 
@@ -179,9 +229,8 @@ export class WeatherDisplayComponent implements OnInit {
     this.themeService.changeMessage(basePath + this.backgrounds[index]);
   }
 
-  // setBackground() {
-  //   this.themeService.myMethod(this.theWeather);
-  // }
-
-
+  // currently only works for Latin based languages
+  isLetter(char: string) {
+    return char.toUpperCase() != char.toLowerCase();
+  }
 }
