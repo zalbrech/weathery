@@ -23,6 +23,7 @@ export class WeatherDisplayComponent implements OnInit {
   numRegex = new RegExp(/\d/g);
   zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
   delimiterRegex = new RegExp('[\s,]');
+  alphabetRegex = new RegExp('[a-zA-Z]');
 
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
@@ -44,14 +45,14 @@ export class WeatherDisplayComponent implements OnInit {
       this.getWeather();
     });
 
-
     this.themeService.currentMessage.subscribe(message => this.message = message);
   }
 
   getWeather() {
-    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')!;
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword')?.toUpperCase()!;
 
-    if(theKeyword.length < 1) {
+    // prevent searching empty string
+    if (theKeyword.length < 1) {
       return;
     }
     // check if input contains digits, if so search input as zip code
@@ -68,10 +69,12 @@ export class WeatherDisplayComponent implements OnInit {
       // parse input
       var begin: number = 0, end: number;
 
-      // test for incorrectly entered non=letters at beginning of string
+      // test for incorrectly entered non-letters at beginning of string
       // this method currently only works for Latin based languages
-      while (!this.isLetter(theKeyword.charAt(begin))) {
+      while (!this.isLetter(theKeyword.charAt(begin)) && begin < theKeyword.length) {
+        console.log(theKeyword.charAt(begin) + ' is not a letter');
         begin++;
+        console.log('begin is now ' + begin);
       }
 
       let list = new Array();
@@ -79,32 +82,35 @@ export class WeatherDisplayComponent implements OnInit {
       for (end = begin; end < theKeyword.length; end++) {
         if (theKeyword.charAt(end) == ',') {
           console.log('delimiter found');
-          if(theKeyword.substring(begin,end).length > 1) {
-            list.push(theKeyword.substring(begin,end).trim());
+          if (theKeyword.substring(begin, end).length > 1) {
+            list.push(theKeyword.substring(begin, end).trim());
           }
           begin = ++end;
         }
       }
       // add last word of input string to list as long as it is not a comma or space
       // duplicate code - plan to fold into if statement inside for loop
-      if (!this.delimiterRegex.test(theKeyword.substring(begin,end))) {
-        list.push(theKeyword.substring(begin,end).trim());
+      if(theKeyword.substring(begin,end).trim().length > 1) {
+        list.push(theKeyword.substring(begin, end).trim());
       }
 
-      for(let i = 0; i < list.length; i++) {
+      // if (!this.delimiterRegex.test(theKeyword.substring(begin, end))) {
+      //   list.push(theKeyword.substring(begin, end).trim());
+      // }
+
+      for (let i = 0; i < list.length; i++) {
         console.log(list[i]);
       }
 
       let theCity: string;
       let theState: string;
-      let theCountry: string;
 
       // only city name entered
-      if(list.length < 2) {
-        this.handleSearch(theKeyword);
+      if (list.length < 2) {
+        this.handleSearch(list[0]);
       } else if (list.length < 3) {
         theCity = list[0];
-        if(this.dataService.isUSState(list[1])) {
+        if (this.dataService.isUSState(list[1])) {
           console.log(list[1] + ' is a US state');
           theState = list[1];
           this.handleSearch(theCity + ',' + theState + ',' + 'US');
@@ -114,50 +120,7 @@ export class WeatherDisplayComponent implements OnInit {
       } else {
         this.handleSearch(list[0] + ',' + list[1] + ',' + list[2]);
       }
-
-      // parse input
-      // if (theKeyword.includes(",")) {
-      //   const theTrimmedKeyword = theKeyword.replace(/\s/g, "");
-      //   console.log(theTrimmedKeyword);
-      //   let arr: string[] = theTrimmedKeyword.split(",");
-
-
-      //   let theCity;
-      //   let theState;
-      //   let theCountry;
-
-      //   // city weather
-      //   if (arr.length < 2) {
-      //     theCity = arr[0];
-      //     this.handleCitySearch(theCity);
-      //   }
-
-      //   if (arr.length < 3) {
-      //     theCity = arr[0];
-      //   }
-      // }
-
-      // this.handleSearch(theKeyword);
     }
-    // console.log(`theKeyword=${theKeyword}`);
-
-
-  }
-
-  handleCitySearch(theCity: string) {
-
-  }
-
-  handleCityCountrySearch(theCity: string, theCountry: string) {
-
-  }
-
-  handleCityStateSearch(theCity: string, theState: string) {
-
-  }
-
-  handleCityStateCountrySearch(theCity: string, theState: string, theCountry: string) {
-
   }
 
   handleZipSearch(theZipCode: string) {
@@ -165,8 +128,6 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   handleSearch(value: string) {
-
-    // console.log('handleSearch() method');
     var tempDate: Date = new Date();
 
     this.weatherService.getCityWeather(value).subscribe(
@@ -191,7 +152,6 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
         // this.theWeather.theBackground = this.setBackground();
 
-
         this.newMessage();
 
         // console.log(this.theWeather.theDate);
@@ -214,10 +174,9 @@ export class WeatherDisplayComponent implements OnInit {
         this.isLoaded = true;
       }
     )
-
   }
 
-  populateFields(tempDate: Date,) {
+  populateFields(tempDate: Date) {
 
   }
 
@@ -234,6 +193,6 @@ export class WeatherDisplayComponent implements OnInit {
 
   // currently only works for Latin based languages
   isLetter(char: string) {
-    return char.toUpperCase() != char.toLowerCase();
+    return this.alphabetRegex.test(char);
   }
 }
