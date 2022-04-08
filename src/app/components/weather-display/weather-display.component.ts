@@ -72,9 +72,7 @@ export class WeatherDisplayComponent implements OnInit {
       // test for incorrectly entered non-letters at beginning of string
       // this method currently only works for Latin based languages
       while (!this.isLetter(theKeyword.charAt(begin)) && begin < theKeyword.length) {
-        console.log(theKeyword.charAt(begin) + ' is not a letter');
         begin++;
-        console.log('begin is now ' + begin);
       }
 
       let list = new Array();
@@ -94,13 +92,9 @@ export class WeatherDisplayComponent implements OnInit {
         list.push(theKeyword.substring(begin, end).trim());
       }
 
-      // if (!this.delimiterRegex.test(theKeyword.substring(begin, end))) {
-      //   list.push(theKeyword.substring(begin, end).trim());
+      // for (let i = 0; i < list.length; i++) {
+      //   console.log(list[i]);
       // }
-
-      for (let i = 0; i < list.length; i++) {
-        console.log(list[i]);
-      }
 
       let theCity: string;
       let theState: string;
@@ -111,7 +105,7 @@ export class WeatherDisplayComponent implements OnInit {
       } else if (list.length < 3) {
         theCity = list[0];
         if (this.dataService.isUSState(list[1])) {
-          console.log(list[1] + ' is a US state');
+          // console.log(list[1] + ' is a US state');
           theState = list[1];
           this.handleSearch(theCity + ',' + theState + ',' + 'US');
         } else {
