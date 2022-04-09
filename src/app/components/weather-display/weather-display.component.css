@@ -13,3 +13,12 @@
     width: 6rem;
     height: 3rem;
 }
+
+ul.inv {
+    list-style-type: none;
+}
+
+ul > li {
+    font-size:1.5rem;
+}
+

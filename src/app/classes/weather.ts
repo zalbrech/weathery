@@ -6,8 +6,10 @@ export class Weather {
     public theState: string = '';
     public theCountry: string = '';
     public theCurrentTemperature: number = 0;
+    public theFeelsLike: number = 0;
     public theHighTemperature: number = 0;
     public theLowTemperature: number = 0;
+    public theHumidity: number = 0;
     public theSunrise: string = '';
     public theSunset: string = '';
     public theDescription: string = '';
