@@ -137,6 +137,8 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theCurrentTemperature = Math.round(data.main.temp);
         this.theWeather.theHighTemperature = Math.round(data.main.temp_max);
         this.theWeather.theLowTemperature = Math.round(data.main.temp_min);
+        this.theWeather.theFeelsLike = Math.round(data.main.feels_like);
+        this.theWeather.theHumidity = Math.round(data.main.humidity);
         this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunrise);
         this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunset);
         this.theWeather.theDescription = data.weather[0].description;

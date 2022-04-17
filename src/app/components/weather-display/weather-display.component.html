@@ -23,13 +23,40 @@
         </div>
     </div>
     <div class="container justify-content-center">
-        <div class="container text-center" style="color:white; font-size: 1.25rem">
-            {{theWeather.theDescription}}
+        <div class="container text-center" style="color:white; font-size: 1rem">
+            <small>{{theWeather.theDescription}}</small>
         </div>
     </div>
 
-    <div class="container">
-        <img src="assets/images/sunrise-icon.png" class="sun-icon img-fluid mx-4" alt="sunrise icon">
-        <img src="assets/images/sunset-icon.png" class="sun-icon img-fluid mx-4" alt="sunset icon">
+
+    <!-- detailed weather stats -->
+    <div class="row" style="margin-top:1.8rem">
+        <div class="col-2 justify-content-center text-center" style="color:white; font-size: 1.25rem">
+            <img src="assets/images/sunrise-icon.png" class="sun-icon img-fluid mx-4 my-2" alt="sunrise icon">
+            <p>{{theWeather.theSunrise}}</p>
+        </div>
+        <div class="col-2 justify-content-center text-center" style="color:white; font-size: 1.25rem">
+            <img src="assets/images/sunset-icon.png" class="sun-icon img-fluid mx-4 my-2" alt="sunset icon">
+            <p>{{theWeather.theSunset}}</p>
+        </div>
+
+        <div class="col-4 justify-content-center text-center" style="color:white; font-size:1.25rem">
+            <ul class="inv">
+                <li><small>feels like: </small> <span class="mx-1">{{theWeather.theFeelsLike}}°F</span></li>
+                <li><small>low: </small><span class="mx-1">{{theWeather.theLowTemperature}}°F</span></li>
+                <li><small>high:  </small><span class="mx-1">{{theWeather.theHighTemperature}}°F</span></li>
+            </ul>
+        </div>
+        <div class="col-4 justify-content-center text-center" style="color:white; font-size:1.25rem">
+            <ul class="inv">
+                <li><small>humidity: </small> <span class="mx-1">{{theWeather.theHumidity}}%</span></li>
+                <li><small>wind speed: </small><span class="mx-1">{{theWeather.theWindSpeed}} mph</span></li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- 7 day forecast -->
+    <div class="row h-100 text-center align-items-center justify-content-center">
+        <b style="color:yellow; font-size:3rem"> 7 DAY FORECAST HERE</b>
     </div>
 </div>
