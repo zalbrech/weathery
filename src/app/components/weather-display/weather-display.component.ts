@@ -16,8 +16,8 @@ export class WeatherDisplayComponent implements OnInit {
 
   isLoaded = false;
   theTemperatureFarenheit: number = 0;
-  private backgrounds: string[];
-
+  // private backgrounds: string[];
+  basePath: string = "assets/images/backgrounds/";
   message: string = "";
 
   numRegex = new RegExp(/\d/g);
@@ -35,7 +35,7 @@ export class WeatherDisplayComponent implements OnInit {
   ) {
     // this.weatherService.theWeather.subscribe();
     // console.log('***********************\nin WeatherDisplay constructor\n');
-    this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg"];
+    // this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg"];
   }
 
   ngOnInit(): void {
@@ -148,7 +148,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
         // this.theWeather.theBackground = this.setBackground();
 
-        this.newMessage();
+        this.newMessage(this.theWeather.theIcon);
 
         // console.log(this.theWeather.theDate);
         // console.log(this.theWeather.theTime);
@@ -162,7 +162,7 @@ export class WeatherDisplayComponent implements OnInit {
         // console.log(this.theWeather.theDescription);
         // console.log(this.theWeather.theMainWeather);
         // console.log(this.theWeather.theWindSpeed);
-        // console.log(this.theWeather.theIcon);
+        console.log(this.theWeather.theIcon);
         // console.log(this.theWeather.theIconPath);
 
         // console.log(this.theWeather);
@@ -181,10 +181,9 @@ export class WeatherDisplayComponent implements OnInit {
     return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' }).substring(4);
   }
 
-  newMessage() {
-    let basePath: string = "assets/images/";
-    var index: number = Math.floor(Math.random() * this.backgrounds.length);
-    this.themeService.changeMessage(basePath + this.backgrounds[index]);
+  newMessage(value: string) {
+    var index: number = Math.floor(Math.random() * 3);
+    this.themeService.changeMessage(this.basePath + value + "/" + index + ".jpg");
   }
 
   // currently only works for Latin based languages
