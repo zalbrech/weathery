@@ -49,6 +49,7 @@ export class WeatherDisplayComponent implements OnInit {
     this.message = "";
     this.status = "";
 
+    //Regex
     this.numRegex = new RegExp(/\d/g);
     this.zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
     this.delimiterRegex = new RegExp('[\s,]');
@@ -94,9 +95,9 @@ export class WeatherDisplayComponent implements OnInit {
 
       let list = new Array();
 
+      // parse search string, splitting via ',' delimiter 
       for (end = begin; end < theKeyword.length; end++) {
         if (theKeyword.charAt(end) == ',') {
-          console.log('delimiter found');
           if (theKeyword.substring(begin, end).length > 1) {
             list.push(theKeyword.substring(begin, end).trim());
           }
@@ -109,46 +110,41 @@ export class WeatherDisplayComponent implements OnInit {
         list.push(theKeyword.substring(begin, end).trim());
       }
 
-      // for (let i = 0; i < list.length; i++) {
-      //   console.log(list[i]);
-      // }
-
       let theCity: string;
       let theState: string;
 
-      // only city name entered
-      if (list.length < 2) {
+      if (list.length < 2) { // only city name entered
         this.handleSearch(list[0]);
-      } else if (list.length < 3) {
+      } else if (list.length < 3) { // parse if input is [city, state] or [city, country]
         theCity = list[0];
         if (this.dataService.isUSState(list[1])) {
-          // console.log(list[1] + ' is a US state');
           theState = list[1];
           this.handleSearch(theCity + ',' + theState + ',' + 'US');
         } else {
           this.handleSearch(theCity + ',' + list[1]);
         }
-      } else {
+      } else { // assume input it [city, state, country]
         this.handleSearch(list[0] + ',' + list[1] + ',' + list[2]);
       }
     }
   }
 
+  // search for weather by zip code (USA only)
   handleZipSearch(theZipCode: string) {
     this.handleSearch(theZipCode + ',US');
   }
 
   handleSearch(value: string) {
-    // this.backgroundComponent.reset();
-
     this.isLoaded = false;
     this.status = '';
     var tempDate: Date = new Date();
 
+    // create new Weather object based on data recieved from Open Weather API
     this.weatherService.getCityWeather(value).subscribe(
       data => {
         this.theWeather = new Weather();
 
+        // populate theWeather fields -> potential to move into separate method
         this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
         this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
@@ -168,7 +164,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theIcon = data.weather[0].icon;
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
 
-        this.newMessage(this.theWeather.theIcon);
+        this.newMessage(this.theWeather.theIcon + "/");
 
         // console.log(this.theWeather.theDate);
         // console.log(this.theWeather.theTime);
@@ -187,30 +183,26 @@ export class WeatherDisplayComponent implements OnInit {
 
         // console.log(this.theWeather);
 
+        // call flag method
         this.display();
       }
     )
   }
 
+  // not currently implemented
   populateFields(tempDate: Date) {
 
   }
 
+  // return formatted string of local time
   getLocalTime() {
     let localDate = new Date();
     return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' }).substring(4);
   }
 
-  newMessage(value: string) {
-    let index: number = Math.floor(Math.random() * 3);
-    if (index === this.oldIndex) { // prevent duplicate backgrounds
-      console.log('preventing duplicate. index = ' + index + ' and oldIndex = ' + this.oldIndex);
-      index = (index + 1) % 3;
-      console.log('index is now ' + index);
-    }
-    this.oldIndex = index;
-    console.log(this.oldIndex + ' ' + index);
-    this.themeService.changeMessage(this.basePath + value + "/" + index + ".jpg");
+  // send icon code to WeatherService to determine background based on weather conditions
+  newMessage(iconCode: string) {
+    this.themeService.changeMessage(this.basePath, iconCode);
   }
 
   // currently only works for Latin based languages
@@ -218,6 +210,7 @@ export class WeatherDisplayComponent implements OnInit {
     return this.alphabetRegex.test(char);
   }
 
+  // flag to help with async
   display() {
     this.isLoaded = true;
     this.status = 'active';
