@@ -58,8 +58,6 @@ export class WeatherDisplayComponent implements OnInit {
     this.alphabetRegex = new RegExp('[a-zA-Z]');
   }
 
-  
-
   ngOnInit(): void {
     console.log('in WeatherDisplay OnInit');
     this.getLocalTime();
@@ -172,7 +170,6 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theWindSpeed = data.wind.speed;
         this.theWeather.theIcon = data.weather[0].icon;
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
-        // this.theWeather.theBackground = this.setBackground();
 
         this.newMessage(this.theWeather.theIcon);
 
@@ -188,15 +185,12 @@ export class WeatherDisplayComponent implements OnInit {
         // console.log(this.theWeather.theDescription);
         // console.log(this.theWeather.theMainWeather);
         // console.log(this.theWeather.theWindSpeed);
-        console.log(this.theWeather.theIcon);
+        // console.log(this.theWeather.theIcon);
         // console.log(this.theWeather.theIconPath);
 
         // console.log(this.theWeather);
 
         this.display();
-        // this.backgroundComponent.display();
-        // this.backgroundComponent.ngOnInit();
-        // this.backgroundComponent.toggleState();
       }
     )
   }

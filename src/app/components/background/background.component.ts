@@ -19,7 +19,6 @@ import {
         ])
       ])
     ]
-    
 })
 export class BackgroundComponent implements OnInit {
   message: string = "";
