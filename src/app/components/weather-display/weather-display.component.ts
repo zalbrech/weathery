@@ -1,45 +1,67 @@
-import { isFormattedError } from '@angular/compiler';
-import { Component, ComponentFactoryResolver, OnInit, ɵɵtrustConstantResourceUrl } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Weather } from 'src/app/classes/weather';
 import { DataService } from 'src/app/services/data.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { WeatherService } from 'src/app/services/weather.service';
 import { BackgroundComponent } from '../background/background.component';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-weather-display',
   templateUrl: './weather-display.component.html',
-  styleUrls: ['./weather-display.component.css']
+  styleUrls: ['./weather-display.component.css'],
+  animations: [
+    trigger('fade', [
+      transition('void => active', [
+        style({ opacity: 0 }),
+        animate(1000, style({ opacity: 1 }))
+      ]),
+      transition('* => void', [
+        animate(1000, style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
+
 export class WeatherDisplayComponent implements OnInit {
 
-  isLoaded = false;
-  theTemperatureFarenheit: number = 0;
-  // private backgrounds: string[];
-  basePath: string = "assets/images/backgrounds/";
-  message: string = "";
+  isLoaded: boolean;
+  theTemperatureFarenheit: number;
+  basePath: string;
+  message: string;
+  status: string;
+  oldIndex: number = 0;
 
-  numRegex = new RegExp(/\d/g);
-  zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
-  delimiterRegex = new RegExp('[\s,]');
-  alphabetRegex = new RegExp('[a-zA-Z]');
+  numRegex;
+  zipRegex;
+  delimiterRegex;
+  alphabetRegex;
 
   constructor(private weatherService: WeatherService,
     private route: ActivatedRoute,
     private router: Router,
     public theWeather: Weather,
-    private backgroundComponent: BackgroundComponent,
+    public backgroundComponent: BackgroundComponent,
     public themeService: ThemeService,
     public dataService: DataService
   ) {
-    // this.weatherService.theWeather.subscribe();
-    // console.log('***********************\nin WeatherDisplay constructor\n');
-    // this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg"];
+    this.isLoaded = false;
+    this.theTemperatureFarenheit = 0;
+    this.basePath = "assets/images/backgrounds/";
+    this.message = "";
+    this.status = "";
+
+    this.numRegex = new RegExp(/\d/g);
+    this.zipRegex = new RegExp((/(^\d{5}$)|(^\d{5}-\d{4}$)/));
+    this.delimiterRegex = new RegExp('[\s,]');
+    this.alphabetRegex = new RegExp('[a-zA-Z]');
   }
 
+  
+
   ngOnInit(): void {
-    // console.log('***********************\nin WeatherDisplay OnInit\n');
+    console.log('in WeatherDisplay OnInit');
     this.getLocalTime();
     this.route.paramMap.subscribe(() => {
       this.getWeather();
@@ -88,7 +110,7 @@ export class WeatherDisplayComponent implements OnInit {
       }
       // add last word of input string to list as long as it is not a comma or space
       // duplicate code - plan to fold into if statement inside for loop
-      if(theKeyword.substring(begin,end).trim().length > 1) {
+      if (theKeyword.substring(begin, end).trim().length > 1) {
         list.push(theKeyword.substring(begin, end).trim());
       }
 
@@ -122,6 +144,10 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   handleSearch(value: string) {
+    // this.backgroundComponent.reset();
+
+    this.isLoaded = false;
+    this.status = '';
     var tempDate: Date = new Date();
 
     this.weatherService.getCityWeather(value).subscribe(
@@ -167,7 +193,10 @@ export class WeatherDisplayComponent implements OnInit {
 
         // console.log(this.theWeather);
 
-        this.isLoaded = true;
+        this.display();
+        // this.backgroundComponent.display();
+        // this.backgroundComponent.ngOnInit();
+        // this.backgroundComponent.toggleState();
       }
     )
   }
@@ -182,12 +211,24 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   newMessage(value: string) {
-    var index: number = Math.floor(Math.random() * 3);
+    let index: number = Math.floor(Math.random() * 3);
+    if(index === this.oldIndex) { // prevent duplicate backgrounds
+      console.log('preventing duplicate. index = ' + index + ' and oldIndex = ' + this.oldIndex);
+      index = (index+1) % 3;
+      console.log('index is now ' + index);
+    }
+    this.oldIndex = index;
+    console.log(this.oldIndex + ' ' + index);
     this.themeService.changeMessage(this.basePath + value + "/" + index + ".jpg");
   }
 
   // currently only works for Latin based languages
   isLetter(char: string) {
     return this.alphabetRegex.test(char);
+  }
+
+  display() {
+    this.isLoaded = true;
+    this.status = 'active';
   }
 }

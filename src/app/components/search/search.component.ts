@@ -11,10 +11,8 @@ import { WeatherDisplayComponent } from '../weather-display/weather-display.comp
 })
 export class SearchComponent implements OnInit {
 
-  tooltip: string = 'this is a tooltip' + '    ' + 'this is a tooltip';
   constructor(private router: Router, private route: ActivatedRoute, private weatherDisplay: WeatherDisplayComponent) {}
   
-
   ngOnInit(): void {}
 
   doSearch(value: string) {
@@ -23,6 +21,4 @@ export class SearchComponent implements OnInit {
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigateByUrl(`/weather-display/${value}`));
   }
-
-  
 }

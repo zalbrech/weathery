@@ -2,69 +2,70 @@ import { Component, OnInit } from '@angular/core';
 import { ThemeService } from 'src/app/services/theme.service';
 import {
   trigger,
-  state,
   style,
   animate,
   transition,
- } from '@angular/animations';
+} from '@angular/animations';
 
 @Component({
-  selector: 'app-background',
+  selector: 'app-background',   
   templateUrl: './background.component.html',
   styleUrls: ['./background.component.css'],
   animations: [
-    // animations go here
-  ]
+      trigger('fade', [
+        transition('* => *', [
+          style({ opacity: 0 }),
+          animate("3s ease-in", style({ opacity: 1 }))
+        ])
+      ])
+    ]
+    
 })
 export class BackgroundComponent implements OnInit {
-
-  isLoaded = false;
-
-  // private backgrounds: string[];
-  value: string = "";
-  myPath: string = "assets/images/";
-
-  message:string = "";
+  message: string = "";
+  isLoaded: boolean;
+  oldMessage: string = "";
 
 
   constructor(public themeService: ThemeService) {
-    // this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-clouds.jpg", "dark-mountains.jpg", "fog-forest.jpg", "rain-window.jpg", "snow-field.jpg", "sunny-field.jpg"];
-    // this.message = this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
-    // console.log("BACKGROUND CONSTRUCTOR");
-
-  }
+    this.isLoaded = false;
+   }
 
   ngOnInit(): void {
-    // this.setBackground();
-    this.isLoaded = false;
-    this.themeService.currentMessage.subscribe(message => this.message = message);
-    this.isLoaded =  true;
-
+    this.themeService.currentMessage.subscribe(theMessage => this.message = theMessage);
+    this.isLoaded = true;
+    // this.display();
   }
 
-  // changeBackground(theBackground: string) {
-  //   console.log('the current background is ' + this.value);
-  //   console.log('the new background will be ' + theBackground);
-  //   this.value = theBackground;
-
-  //   return this.value;
-  // }
-
-  // setBackground() {
-  //   this.isLoaded = false;
-  //   console.log("BACKGROUND setBackground()");
-  //   this.value = this.myPath + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)];
-  //   console.log('the new value is ' + this.value);
+  // TODO: delete after further animation testing
+  // display() {
+  //   console.log("BACKGROUND DISPLAY CALLED");
+  //   // this.toggleState();
   //   this.isLoaded = true;
-
+  //   // this.status = true;
+  //   // this.reset();
   // }
 
-  // getBackground() {
-  //   return this.value;
+  // reset() {
+  //   console.log("BACKGROUND RESET CALLED");
+  //   this.isLoaded = false;
+  //   this.status = false;
+  //   console.log("BACKGROUND STATUS = " + this.status);
+  //   this.display();
   // }
 
-  // setValue(newValue: string) {
-  //   this.value = newValue;
+  
+  // for debugging only to check triggering and timing of animation
+
+  // html -> (@fade.start)="onStart($any($event))
+  // onStart(event: Event) {
+  //   console.log('animation starting ' + new Date());
   // }
 
+  // html -> (@fade.done)="onDone($any($event))
+  // onDone(event: Event) {
+  //   console.log("animation finished " + new Date());
+  //   console.log(event);
+  //   // this.toggleState();
+  // }
 }

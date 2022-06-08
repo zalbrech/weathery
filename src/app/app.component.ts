@@ -1,7 +1,14 @@
 import { Renderer2 } from '@angular/core';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from './services/theme.service';
+import { 
+  trigger,
+  state,
+  style,
+  animate,
+  transition,
+} from '@angular/animations';
 
 @Component({
   selector: 'app-root',

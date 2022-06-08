@@ -5,10 +5,33 @@
     height: 100vh;
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;;
+    background-size: cover;   
+}
+
+.bg-random:after {
+    position: absolute;
+    content:"";
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    background-image: linear-gradient(to bottom, rgb(20, 20, 20) 60%);
+    opacity: 0.8
 }
 
 .fade-in {
-	-webkit-animation: fade-in 1.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
-	        animation: fade-in 1.2s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    opacity: 1;
+    animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 10s;
+}
+
+@keyframes fadeInOpacity {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }

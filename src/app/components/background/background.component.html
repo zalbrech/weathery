@@ -1,5 +1,7 @@
-<div *ngIf="isLoaded" class="bg-random fade-in"
-[ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(' + this.message + ')'}">
-    <!-- <img [src]="backgroundImageStyle" class="img-fluid bg-random" alt="background-image"> -->
+<div [@fade]="this.message" *ngIf="isLoaded" class="bg-random"
+    [ngStyle]="{'background-image': 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + message + ')'}">
 </div>
 
+<!-- <div [@fade]="status" *ngIf="isLoaded" >
+    <img class="bg-random" (@fade.done)="onDone($any($event))" [src]="this.message"/>
+</div> -->

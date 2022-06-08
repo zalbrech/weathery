@@ -39,23 +39,6 @@ export class ThemeService {
     this.backgrounds = ["blue-mountains.jpg", "clear-sky.jpg", "dark-mountains.jpg"];
     this.messageSource = new BehaviorSubject<string>("assets/images/" + this.backgrounds[Math.floor(Math.random() * this.backgrounds.length)]);
     this.currentMessage = this.messageSource.asObservable();
-    // this._01d = ["0.jpg","1.jpg","2.jpg"];
-    // this._01n = ["0.jpg","1.jpg","2.jpg"];
-    // this._02d = ["0.jpg","1.jpg","2.jpg"];
-    // this._02n = ["0.jpg","1.jpg"];
-    // this._03d = ["0.jpg","1.jpg","2.jpg"];
-    // this._03n = ["0.jpg","1.jpg","2.jpg"];
-    // this._04d = ["0.jpg","1.jpg","2.jpg"];
-    // this._04n = ["0.jpg","1.jpg"];
-    // this._09d = ["0.jpg","1.png"];
-    // this._10d = ["0.jpg","1.jpg","2.jpg"];
-    // this._10n = ["0.jpg","1.jpg"];
-    // this._11d = ["0.jpg","1.jpg","2.jpg"];
-    // this._13d = ["0.jpg","1.jpg","2.jpg"];
-    // this._13n = ["0.jpg","1.jpg","2.jpg"];
-    // this._50d = ["0.jpg","1.jpg","2.jpg"];
-    // this._50n = ["0.jpg","1.jpg"];
-
     console.log('in theme service');
   }
 
