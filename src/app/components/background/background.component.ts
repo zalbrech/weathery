@@ -22,6 +22,7 @@ import {
 })
 export class BackgroundComponent implements OnInit {
   message: string = "";
+  animationValue: boolean = false;
   isLoaded: boolean;
   oldMessage: string = "";
 
@@ -32,6 +33,8 @@ export class BackgroundComponent implements OnInit {
 
   ngOnInit(): void {
     this.themeService.currentMessage.subscribe(theMessage => this.message = theMessage);
+    this.themeService.animationMessage.subscribe(animationValue => this.animationValue = animationValue);
+    console.log(this.animationValue);
     this.isLoaded = true;
     // this.display();
   }

@@ -25,7 +25,6 @@ export class WeatherDisplayComponent implements OnInit {
 
   isLoaded: boolean;
   theTemperatureFarenheit: number;
-  basePath: string;
   message: string;
   status: string;
   oldIndex: number = 0;
@@ -45,7 +44,6 @@ export class WeatherDisplayComponent implements OnInit {
   ) {
     this.isLoaded = false;
     this.theTemperatureFarenheit = 0;
-    this.basePath = "assets/images/backgrounds/";
     this.message = "";
     this.status = "";
 
@@ -165,6 +163,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
 
         this.newMessage(this.theWeather.theIcon + "/");
+        this.triggerBackgroundAnimation();
 
         // console.log(this.theWeather.theDate);
         // console.log(this.theWeather.theTime);
@@ -202,7 +201,11 @@ export class WeatherDisplayComponent implements OnInit {
 
   // send icon code to WeatherService to determine background based on weather conditions
   newMessage(iconCode: string) {
-    this.themeService.changeMessage(this.basePath, iconCode);
+    this.themeService.changeMessage(iconCode);
+  }
+
+  triggerBackgroundAnimation() {
+    this.themeService.triggerAnimation();
   }
 
   // currently only works for Latin based languages
