@@ -16,8 +16,6 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {}
 
   doSearch(value: string) {
-    // console.log('in SEARCH doSearch()');
-
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
     this.router.navigateByUrl(`/weather-display/${value}`));
   }

@@ -12,13 +12,10 @@ import { trigger, transition, style, animate } from '@angular/animations';
   templateUrl: './weather-display.component.html',
   styleUrls: ['./weather-display.component.css'],
   animations: [
-    trigger('fade', [
-      transition('void => active', [
-        style({ opacity: 0 }),
-        animate(1000, style({ opacity: 1 }))
-      ]),
-      transition('* => void', [
-        animate(1000, style({ opacity: 0 }))
+    trigger('flyIn', [
+      transition(':enter', [
+        style({ transform: 'translateY(200%)' }),
+        animate('1.2s .75s ease-in-out', style({ transform: 'translateY(0%)' }))
       ])
     ])
   ]
@@ -206,9 +203,9 @@ export class WeatherDisplayComponent implements OnInit {
 
   newMessage(value: string) {
     let index: number = Math.floor(Math.random() * 3);
-    if(index === this.oldIndex) { // prevent duplicate backgrounds
+    if (index === this.oldIndex) { // prevent duplicate backgrounds
       console.log('preventing duplicate. index = ' + index + ' and oldIndex = ' + this.oldIndex);
-      index = (index+1) % 3;
+      index = (index + 1) % 3;
       console.log('index is now ' + index);
     }
     this.oldIndex = index;
