@@ -24,8 +24,6 @@ export class BackgroundComponent implements OnInit {
   message: string = "";
   animationValue: boolean = false;
   isLoaded: boolean;
-  oldMessage: string = "";
-
 
   constructor(public themeService: ThemeService) {
     this.isLoaded = false;

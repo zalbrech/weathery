@@ -18,10 +18,12 @@ import { FooterComponent } from './components/footer/footer.component';
 import { BackgroundComponent } from './components/background/background.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 const routes: Routes = [
   {path: 'weather-display/:keyword', component: WeatherDisplayComponent},
+  {path: '404/:keyword', component: NotFoundComponent},
   // {path: 'search' , component: SearchComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'}
 ]
@@ -34,7 +36,8 @@ const routes: Routes = [
     ThemeToggleComponent,
     HeaderComponent,
     FooterComponent,
-    BackgroundComponent
+    BackgroundComponent,
+    NotFoundComponent
   ],
   imports: [
     HttpClientModule,

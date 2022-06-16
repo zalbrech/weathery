@@ -6,6 +6,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 import { WeatherService } from 'src/app/services/weather.service';
 import { BackgroundComponent } from '../background/background.component';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-weather-display',
@@ -27,7 +28,6 @@ export class WeatherDisplayComponent implements OnInit {
   theTemperatureFarenheit: number;
   message: string;
   status: string;
-  oldIndex: number = 0;
 
   numRegex;
   zipRegex;
@@ -40,7 +40,8 @@ export class WeatherDisplayComponent implements OnInit {
     public theWeather: Weather,
     public backgroundComponent: BackgroundComponent,
     public themeService: ThemeService,
-    public dataService: DataService
+    public dataService: DataService,
+    public httpClient: HttpClient
   ) {
     this.isLoaded = false;
     this.theTemperatureFarenheit = 0;
@@ -66,6 +67,9 @@ export class WeatherDisplayComponent implements OnInit {
 
   getWeather() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')?.toUpperCase()!;
+
+    //check response code
+    // if search string is invalid, redirect to 404 component
 
     // prevent searching empty string
     if (theKeyword.length < 1) {
@@ -137,9 +141,12 @@ export class WeatherDisplayComponent implements OnInit {
     this.status = '';
     var tempDate: Date = new Date();
 
-    // create new Weather object based on data recieved from Open Weather API
+
+
     this.weatherService.getCityWeather(value).subscribe(
       data => {
+
+        // create new Weather object based on data recieved from Open Weather API
         this.theWeather = new Weather();
 
         // populate theWeather fields -> potential to move into separate method
@@ -184,6 +191,10 @@ export class WeatherDisplayComponent implements OnInit {
 
         // call flag method
         this.display();
+      },
+      error => {
+        console.log('error in weather display');
+        this.router.navigateByUrl(`404/${value}`);
       }
     )
   }
@@ -204,6 +215,7 @@ export class WeatherDisplayComponent implements OnInit {
     this.themeService.changeMessage(iconCode);
   }
 
+  //
   triggerBackgroundAnimation() {
     this.themeService.triggerAnimation();
   }

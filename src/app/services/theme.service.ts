@@ -46,7 +46,8 @@ export class ThemeService {
     
   }
 
-  triggerAnimation() {
+  // trigger fade animation in BackgroundComponent
+  triggerAnimation() { 
     this.animationValue = !this.animationValue
     this.animationSource.next(this.animationValue);
   }

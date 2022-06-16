@@ -32,16 +32,22 @@ export class WeatherService {
 
   }
 
-  getCityWeather(theCity: string): Observable<any> {
-    console.log('searching weather for ' + theCity);
-    const searchUrl = `${this.baseUrl}${theCity}${this.theApiKey}${this.theUnits}`;
-    this.httpClient.get(searchUrl).subscribe(
-      data => {
-        console.log(data);
+  getCityWeather(input: string): Observable<any> {
+    let responseCode;
+    console.log('searching weather for ' + input);
+    const searchUrl = `${this.baseUrl}${input}${this.theApiKey}${this.theUnits}`;
+    this.httpClient.get(searchUrl, {observe: 'response'}).subscribe(
+      response => {
+        responseCode = response.status;
       });
+
+      if(responseCode != 200) {
+        console.log('error ' + responseCode);
+      }
 
     return this.httpClient.get<any>(searchUrl);
   }
+
 
   // format time output
   getFormattedTime(theDate: Date): string {

@@ -7,14 +7,3 @@
     background-repeat: no-repeat;
     background-size: cover;   
 }
-
-.bg-random:after {
-    position: absolute;
-    content:"";
-    height:100%;
-    width:100%;
-    top:0;
-    left:0;
-    background-image: linear-gradient(to bottom, rgb(20, 20, 20) 60%);
-    opacity: 0.8
-}
