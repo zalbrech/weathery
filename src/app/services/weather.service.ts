@@ -12,8 +12,13 @@ export class WeatherService {
 
   private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
 
+  private geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=';
+
+  private oneCallUrl = 'http://api.openweathermap.org/data/3.0/onecall?=';
+
   private theUnits = '&units=imperial';
 
+  private theLimit = '&limit=1';
   public theWeather = new Observable<Weather>();
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
@@ -28,22 +33,28 @@ export class WeatherService {
 
    }
 
-  getWeather() {
+  getCoordinates(input: string): Observable<any> {
+    let searchUrl = `${this.geoUrl}${input}${this.theLimit}${this.theApiKey}${this.theUnits}`;
+    // debugging only
+    // this.httpClient.get<any>(searchUrl).subscribe(
+    //   data => {
+    //     console.log(data);
+    //     latitude = data.lat;
+    //     longitude = data.lon;
+    //   });
 
+    return this.httpClient.get<any>(searchUrl);
   }
 
-  getCityWeather(input: string): Observable<any> {
-    let responseCode;
+  getWeather(input: string): Observable<any> {
     console.log('searching weather for ' + input);
     const searchUrl = `${this.baseUrl}${input}${this.theApiKey}${this.theUnits}`;
-    this.httpClient.get(searchUrl, {observe: 'response'}).subscribe(
-      response => {
-        responseCode = response.status;
-      });
 
-      if(responseCode != 200) {
-        console.log('error ' + responseCode);
-      }
+    // debugging only
+    // this.httpClient.get(searchUrl).subscribe(
+    //   data => {
+    //     console.log(data);
+    //   });
 
     return this.httpClient.get<any>(searchUrl);
   }

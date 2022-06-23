@@ -5,10 +5,13 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
-  private states:Set<string>;
+  private twoLetterStates:Set<string>;
+
+  //replace twoLetterStates with stateMap, can still use isUSState() method and also display state abbreviation in weather display
+  private stateMap:Map<String,String>;
   
   constructor() { 
-    this.states = new Set<string>([
+    this.twoLetterStates = new Set<string>([
       'AL', 'AK', 'AZ', 'AR', 
       'CA', 'CO', 'CT', 'DE', 
       'FL', 'GA', 'HI', 'ID',
@@ -25,12 +28,22 @@ export class DataService {
       'MP', 'PR', 'UM', 'VI' 
     ]);
 
+    this.stateMap = new Map<string,string>([['Alabama','AL'],['Arkansas','AK']]);
+    for(var state of this.twoLetterStates) {
+
+    }
+
     // console.log(this.states.size);
   }
 
   isUSState(value: string) : boolean {
-      if(this.states.has(value)) {
+      if(this.twoLetterStates.has(value)) {
         return true;
       } else return false;
+  }
+
+  // use this to display state abbreviation
+  test() {
+    return Object.values(this.stateMap).includes('AL');
   }
 }

@@ -140,10 +140,19 @@ export class WeatherDisplayComponent implements OnInit {
     this.isLoaded = false;
     this.status = '';
     var tempDate: Date = new Date();
+    let latitude: string, longitude: string;
 
+    this.weatherService.getCoordinates(value).subscribe(
+      data => {
+        latitude = data.lat;
+        longitude = data.lon;
+      },
+      error => {
+        this.displayNotFound(error,value);
+      }
+    )
 
-
-    this.weatherService.getCityWeather(value).subscribe(
+    this.weatherService.getWeather(value).subscribe(
       data => {
 
         // create new Weather object based on data recieved from Open Weather API
@@ -193,8 +202,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.display();
       },
       error => {
-        console.log('error in weather display');
-        this.router.navigateByUrl(`404/${value}`);
+        this.displayNotFound(error,value);
       }
     )
   }
@@ -230,4 +238,11 @@ export class WeatherDisplayComponent implements OnInit {
     this.isLoaded = true;
     this.status = 'active';
   }
+
+  displayNotFound(error: any, value:string) {
+    console.log('error in weather display');
+    console.log(error);
+    this.router.navigateByUrl(`404/${value}`);
+  }
+
 }
