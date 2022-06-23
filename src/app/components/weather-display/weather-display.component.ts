@@ -141,23 +141,30 @@ export class WeatherDisplayComponent implements OnInit {
     this.status = '';
     let latitude: string = "", longitude: string = "", state: string = "";
 
+    try {
+      this.weatherService.getCoordinates(value).subscribe(
+        data => {
+          if (data[0] == undefined) {
+            this.displayNotFound('undefined data', value);
+          } else {
+            latitude = data[0].lat;
+            longitude = data[0].lon;
+            if (data[0].state != undefined) {
+              state = data[0].state;
+            }
 
-
-    this.weatherService.getCoordinates(value).subscribe(
-      data => {
-        latitude = data[0].lat;
-        longitude = data[0].lon;
-        if(data[0].state != undefined) {
-          state = data[0].state;
+            console.log(latitude + ", " + longitude + " " + state);
+            this.getWeather(latitude, longitude);
+          }
+        },
+        error => {
+          this.displayNotFound(error, value);
         }
-
-        console.log(latitude + ", " + longitude + " " + state);
-        this.getWeather(latitude,longitude);
-      },
-      error => {
-        this.displayNotFound(error,value);
-      }
-    );
+      );
+    } catch (error: any) {
+      console.log(error)
+      this.displayNotFound(error, value);
+    };
   }
 
   // not currently implemented
@@ -192,15 +199,15 @@ export class WeatherDisplayComponent implements OnInit {
     this.status = 'active';
   }
 
-  displayNotFound(error: any, value:string) {
+  displayNotFound(error: any, value: string) {
     console.log('error in weather display');
     console.log(error);
     this.router.navigateByUrl(`404/${value}`);
   }
 
-  getWeather(latitude:string,longitude:string) {
+  getWeather(latitude: string, longitude: string) {
     var tempDate: Date = new Date();
-    this.weatherService.getWeather(latitude,longitude).subscribe(
+    this.weatherService.getWeather(latitude, longitude).subscribe(
       data => {
 
         // create new Weather object based on data recieved from Open Weather API
