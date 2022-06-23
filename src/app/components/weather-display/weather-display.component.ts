@@ -59,13 +59,13 @@ export class WeatherDisplayComponent implements OnInit {
     console.log('in WeatherDisplay OnInit');
     this.getLocalTime();
     this.route.paramMap.subscribe(() => {
-      this.getWeather();
+      this.parseInput();
     });
 
     this.themeService.currentMessage.subscribe(message => this.message = message);
   }
 
-  getWeather() {
+  parseInput() {
     const theKeyword: string = this.route.snapshot.paramMap.get('keyword')?.toUpperCase()!;
 
     //check response code
@@ -139,20 +139,68 @@ export class WeatherDisplayComponent implements OnInit {
   handleSearch(value: string) {
     this.isLoaded = false;
     this.status = '';
-    var tempDate: Date = new Date();
-    let latitude: string, longitude: string;
+    let latitude: string = "", longitude: string = "", state: string = "";
+
+
 
     this.weatherService.getCoordinates(value).subscribe(
       data => {
-        latitude = data.lat;
-        longitude = data.lon;
+        latitude = data[0].lat;
+        longitude = data[0].lon;
+        if(data[0].state != undefined) {
+          state = data[0].state;
+        }
+
+        console.log(latitude + ", " + longitude + " " + state);
+        this.getWeather(latitude,longitude);
       },
       error => {
         this.displayNotFound(error,value);
       }
-    )
+    );
+  }
 
-    this.weatherService.getWeather(value).subscribe(
+  // not currently implemented
+  populateFields(tempDate: Date) {
+
+  }
+
+  // return formatted string of local time
+  getLocalTime() {
+    let localDate = new Date();
+    return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' }).substring(4);
+  }
+
+  // send icon code to WeatherService to determine background based on weather conditions
+  newMessage(iconCode: string) {
+    this.themeService.changeMessage(iconCode);
+  }
+
+  //
+  triggerBackgroundAnimation() {
+    this.themeService.triggerAnimation();
+  }
+
+  // currently only works for Latin based languages
+  isLetter(char: string) {
+    return this.alphabetRegex.test(char);
+  }
+
+  // flag to help with async
+  display() {
+    this.isLoaded = true;
+    this.status = 'active';
+  }
+
+  displayNotFound(error: any, value:string) {
+    console.log('error in weather display');
+    console.log(error);
+    this.router.navigateByUrl(`404/${value}`);
+  }
+
+  getWeather(latitude:string,longitude:string) {
+    var tempDate: Date = new Date();
+    this.weatherService.getWeather(latitude,longitude).subscribe(
       data => {
 
         // create new Weather object based on data recieved from Open Weather API
@@ -200,49 +248,7 @@ export class WeatherDisplayComponent implements OnInit {
 
         // call flag method
         this.display();
-      },
-      error => {
-        this.displayNotFound(error,value);
-      }
-    )
-  }
-
-  // not currently implemented
-  populateFields(tempDate: Date) {
-
-  }
-
-  // return formatted string of local time
-  getLocalTime() {
-    let localDate = new Date();
-    return this.weatherService.getFormattedTime(localDate) + " " + localDate.toLocaleDateString(undefined, { day: '2-digit', timeZoneName: 'long' }).substring(4);
-  }
-
-  // send icon code to WeatherService to determine background based on weather conditions
-  newMessage(iconCode: string) {
-    this.themeService.changeMessage(iconCode);
-  }
-
-  //
-  triggerBackgroundAnimation() {
-    this.themeService.triggerAnimation();
-  }
-
-  // currently only works for Latin based languages
-  isLetter(char: string) {
-    return this.alphabetRegex.test(char);
-  }
-
-  // flag to help with async
-  display() {
-    this.isLoaded = true;
-    this.status = 'active';
-  }
-
-  displayNotFound(error: any, value:string) {
-    console.log('error in weather display');
-    console.log(error);
-    this.router.navigateByUrl(`404/${value}`);
+      });
   }
 
 }

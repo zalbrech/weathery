@@ -10,7 +10,7 @@ export class WeatherService {
 
   private theApiKey = '&appid=d54c5e6f719f6b43909a22379060606b';
 
-  private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
+  private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?';
 
   private geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=';
 
@@ -35,20 +35,20 @@ export class WeatherService {
 
   getCoordinates(input: string): Observable<any> {
     let searchUrl = `${this.geoUrl}${input}${this.theLimit}${this.theApiKey}${this.theUnits}`;
+    
     // debugging only
-    // this.httpClient.get<any>(searchUrl).subscribe(
-    //   data => {
-    //     console.log(data);
-    //     latitude = data.lat;
-    //     longitude = data.lon;
-    //   });
+    this.httpClient.get<any>(searchUrl).subscribe(
+      data => {
+        console.log(data);
+      });
 
     return this.httpClient.get<any>(searchUrl);
   }
 
-  getWeather(input: string): Observable<any> {
-    console.log('searching weather for ' + input);
-    const searchUrl = `${this.baseUrl}${input}${this.theApiKey}${this.theUnits}`;
+  getWeather(latitude:string, longitude:string): Observable<any> {
+    console.log('searching weather for ' + latitude + ", " + longitude);
+    let cords = 'lat='+ latitude + '&lon=' + longitude; 
+    const searchUrl = `${this.baseUrl}${cords}${this.theApiKey}${this.theUnits}`;
 
     // debugging only
     // this.httpClient.get(searchUrl).subscribe(
