@@ -289,26 +289,37 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theIcon = data.current.weather[0].icon;
         this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
 
+        this.theWeather.theForecasts = [];
+
+        for(let i = 1; i < data.daily.length; i++) {
+          let forecast:any = {
+            day: '',
+            icon: this.theWeather.theIconPath + data.daily[i].weather[0].icon + '.png',
+            high: data.daily[i].temp.max,
+            low: data.daily[i].temp.min,
+          };
+          this.theWeather.theForecasts.push(forecast);
+        }
 
         this.newMessage(this.theWeather.theIcon + "/");
         this.triggerBackgroundAnimation();
 
-        console.log(this.theWeather.theDate);
-        console.log(this.theWeather.theTime);
-        console.log(this.theWeather.theFormattedDateString);
-        console.log(this.theWeather.theCity);
-        console.log(this.theWeather.theState);
-        console.log(this.theWeather.theCountry);
-        console.log(this.theWeather.theCurrentTemperature);
-        console.log(this.theWeather.theSunrise);
-        console.log(this.theWeather.theSunset);
-        console.log(this.theWeather.theDescription);
-        console.log(this.theWeather.theMainWeather);
-        console.log(this.theWeather.theWindSpeed);
-        console.log(this.theWeather.theIcon);
-        console.log(this.theWeather.theIconPath);
+        // console.log(this.theWeather.theDate);
+        // console.log(this.theWeather.theTime);
+        // console.log(this.theWeather.theFormattedDateString);
+        // console.log(this.theWeather.theCity);
+        // console.log(this.theWeather.theState);
+        // console.log(this.theWeather.theCountry);
+        // console.log(this.theWeather.theCurrentTemperature);
+        // console.log(this.theWeather.theSunrise);
+        // console.log(this.theWeather.theSunset);
+        // console.log(this.theWeather.theDescription);
+        // console.log(this.theWeather.theMainWeather);
+        // console.log(this.theWeather.theWindSpeed);
+        // console.log(this.theWeather.theIcon);
+        // console.log(this.theWeather.theIconPath);
 
-        console.log(this.theWeather);
+        // console.log(this.theWeather);
 
         // call flag method
         this.display();

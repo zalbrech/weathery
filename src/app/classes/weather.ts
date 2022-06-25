@@ -18,5 +18,5 @@ export class Weather {
     public theIcon: string = '';
     public theIconPath: string = "assets/images/weather-icons/"; 
     public theBackground: string = '';
-
+    public theForecasts: any[] = [];
 }
