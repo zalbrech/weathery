@@ -151,7 +151,7 @@ export class WeatherService {
     return theDay + theSuffix;
   }
 
-  // convert number to string
+  // convert number to day of the week string abbreviation
   getDayString(theDay: number) : string {
     return this.dayStrings[theDay];
   }
