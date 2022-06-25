@@ -119,7 +119,7 @@ export class WeatherDisplayComponent implements OnInit {
         this.handleSearch(list[0]);
       } else if (list.length < 3) { // parse if input is [city, state] or [city, country]
         theCity = list[0];
-        if (this.dataService.isUSState(list[1])) {
+        if (this.dataService.isTwoLetterAbbreviation(list[1])) {
           theState = list[1];
           this.handleSearch(theCity + ',' + theState + ',' + 'US');
         } else {
@@ -139,7 +139,7 @@ export class WeatherDisplayComponent implements OnInit {
   handleSearch(value: string) {
     this.isLoaded = false;
     this.status = '';
-    let latitude: string = "", longitude: string = "", state: string = "";
+    let latitude: string = "", longitude: string = "", city: string = "", state: string = "", country: string = "";
 
     try {
       this.weatherService.getCoordinates(value).subscribe(
@@ -149,12 +149,17 @@ export class WeatherDisplayComponent implements OnInit {
           } else {
             latitude = data[0].lat;
             longitude = data[0].lon;
+            city = data[0].name;
+            country = data[0].country;
             if (data[0].state != undefined) {
-              state = data[0].state;
+              if(this.dataService.isUSState(data[0].state)) { // insure that getTwoLetterAbbreviation will return a value
+                state = this.dataService.getTwoLetterAbbreviation(data[0].state);
+              } else state = "false";
+              
             }
 
-            console.log(latitude + ", " + longitude + " " + state);
-            this.getWeather(latitude, longitude);
+            console.log(latitude + ", " + longitude + " " + city + "," + state + " " + country);
+            this.getOneCallWeather(latitude, longitude,city,state,country);
           }
         },
         error => {
@@ -256,6 +261,59 @@ export class WeatherDisplayComponent implements OnInit {
         // call flag method
         this.display();
       });
+  }
+
+  getOneCallWeather(latitude: string, longitude: string, city: string, state:string, country:string) {
+    var tempDate: Date = new Date();
+    this.weatherService.getOneCallWeather(latitude,longitude).subscribe(
+      data => {
+        this.theWeather = new Weather();
+
+        this.theWeather.theDate = new Date(Date.now() + 
+          ((tempDate.getTimezoneOffset() * 60000) + (data.timezone_offset * 1000)));
+        this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
+        this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
+        this.theWeather.theCity = city;
+        this.theWeather.theState = state === "false" ? "" : state;
+        this.theWeather.theCountry = country;
+        this.theWeather.theCurrentTemperature = Math.round(data.current.temp);
+        this.theWeather.theHighTemperature = Math.round(data.daily[0].temp.max);
+        this.theWeather.theLowTemperature = Math.round(data.daily[0].temp.min);
+        this.theWeather.theFeelsLike = Math.round(data.current.feels_like);
+        this.theWeather.theHumidity = Math.round(data.current.humidity);
+        this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone_offset, data.current.sunrise);
+        this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone_offset, data.current.sunset);
+        this.theWeather.theWindSpeed = data.current.wind_speed;
+        this.theWeather.theDescription = data.current.weather[0].description;
+        this.theWeather.theMainWeather = data.current.weather[0].main;
+        this.theWeather.theIcon = data.current.weather[0].icon;
+        this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
+
+
+        this.newMessage(this.theWeather.theIcon + "/");
+        this.triggerBackgroundAnimation();
+
+        console.log(this.theWeather.theDate);
+        console.log(this.theWeather.theTime);
+        console.log(this.theWeather.theFormattedDateString);
+        console.log(this.theWeather.theCity);
+        console.log(this.theWeather.theState);
+        console.log(this.theWeather.theCountry);
+        console.log(this.theWeather.theCurrentTemperature);
+        console.log(this.theWeather.theSunrise);
+        console.log(this.theWeather.theSunset);
+        console.log(this.theWeather.theDescription);
+        console.log(this.theWeather.theMainWeather);
+        console.log(this.theWeather.theWindSpeed);
+        console.log(this.theWeather.theIcon);
+        console.log(this.theWeather.theIconPath);
+
+        console.log(this.theWeather);
+
+        // call flag method
+        this.display();
+      }
+    );
   }
 
 }

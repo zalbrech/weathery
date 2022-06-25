@@ -14,11 +14,14 @@ export class WeatherService {
 
   private geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=';
 
-  private oneCallUrl = 'http://api.openweathermap.org/data/3.0/onecall?=';
+  private oneCallUrl = 'http://api.openweathermap.org/data/3.0/onecall?';
 
   private theUnits = '&units=imperial';
 
   private theLimit = '&limit=1';
+
+  private theExclusions = '&exclude=minutely,hourly,alerts';
+
   public theWeather = new Observable<Weather>();
 
   private monthStrings:string[] = ['Jan', 'Feb', 'Mar', 'Apr', 
@@ -55,6 +58,22 @@ export class WeatherService {
     //   data => {
     //     console.log(data);
     //   });
+
+    return this.httpClient.get<any>(searchUrl);
+  }
+
+  getOneCallWeather(latitude:string, longitude:string): Observable<any> {
+    console.log('searching weather for ' + latitude + ", " + longitude);
+    let cords = 'lat=' + latitude + '&lon=' + longitude;
+    let searchUrl = `${this.oneCallUrl}${cords}${this.theExclusions}${this.theApiKey}${this.theUnits}`;
+
+    console.log(searchUrl);
+    // debugging only
+
+    this.httpClient.get(searchUrl).subscribe(
+      data => {
+        console.log(data);
+      });
 
     return this.httpClient.get<any>(searchUrl);
   }

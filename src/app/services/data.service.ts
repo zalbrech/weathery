@@ -8,7 +8,7 @@ export class DataService {
   private twoLetterStates:Set<string>;
 
   //replace twoLetterStates with stateMap, can still use isUSState() method and also display state abbreviation in weather display
-  private stateMap:Map<String,String>;
+  private stateMap:Map<string,string>;
   
   constructor() { 
     this.twoLetterStates = new Set<string>([
@@ -76,14 +76,18 @@ export class DataService {
     console.log(this.twoLetterStates.size +  " " + this.stateMap.size);
   }
 
-  isUSState(value: string) : boolean {
-      if(this.twoLetterStates.has(value)) {
-        return true;
-      } else return false;
+  // check if valid two letter US state abbreviation
+  isTwoLetterAbbreviation(input: string) : boolean {
+    return this.twoLetterStates.has(input);
   }
 
-  // use this to display state abbreviation
-  test() {
-    return Object.values(this.stateMap).includes('AL');
+  // checks whether passed string is a US state
+  isUSState(key: string) : boolean {
+    return this.stateMap.has(key);
+  }
+
+  // Return the two letter abbreviation of US states
+  getTwoLetterAbbreviation(key: string) : string {
+    return this.stateMap.get(key)!;
   }
 }
