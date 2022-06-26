@@ -29,6 +29,8 @@ export class WeatherDisplayComponent implements OnInit {
   message: string;
   status: string;
 
+  theIconPath: string;
+
   numRegex;
   zipRegex;
   delimiterRegex;
@@ -47,6 +49,7 @@ export class WeatherDisplayComponent implements OnInit {
     this.theTemperatureFarenheit = 0;
     this.message = "";
     this.status = "";
+    this.theIconPath = "assets/images/weather-icons/";
 
     //Regex
     this.numRegex = new RegExp(/\d/g);
@@ -294,24 +297,25 @@ export class WeatherDisplayComponent implements OnInit {
         for(let i = 1; i < data.daily.length; i++) {
           let forecast:any = {
             day: this.weatherService.getDayString((this.theWeather.theDate.getDay()+i) % 7),
-            icon: this.theWeather.theIconPath + data.daily[i].weather[0].icon + '.png',
-            high: data.daily[i].temp.max,
-            low: data.daily[i].temp.min,
+            icon: this.theIconPath + data.daily[i].weather[0].icon + '.png',
+            high: Math.round(data.daily[i].temp.max),
+            low: Math.round(data.daily[i].temp.min),
           };
           this.theWeather.theForecasts.push(forecast);
         }
 
-        for(var entry of this.theWeather.theForecasts) {
-          console.log(entry.day);
-          console.log(entry.icon);
-          console.log(entry.high);
-          console.log(entry.low);
-        }
+        // debugging / testing
+        // for(var entry of this.theWeather.theForecasts) {
+        //   console.log(entry.day);
+        //   console.log(entry.icon);
+        //   console.log(entry.high);
+        //   console.log(entry.low);
+        // }
 
         this.newMessage(this.theWeather.theIcon + "/");
         this.triggerBackgroundAnimation();
 
-        console.log(this.theWeather.theDate);
+        // console.log(this.theWeather.theDate);
         // console.log(this.theWeather.theTime);
         // console.log(this.theWeather.theFormattedDateString);
         // console.log(this.theWeather.theCity);

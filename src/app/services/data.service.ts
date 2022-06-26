@@ -5,9 +5,10 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  // List of two letter US state abbreviations
   private twoLetterStates:Set<string>;
 
-  //replace twoLetterStates with stateMap, can still use isUSState() method and also display state abbreviation in weather display
+  // Map <k,v> = <full name, two letter abbreviation>
   private stateMap:Map<string,string>;
   
   constructor() { 
@@ -72,8 +73,6 @@ export class DataService {
       ['Northern Mariana Islands','MP'],['Puerto Rico','PR'],
       ['United States Virgin Islands','VI']
     ]);
-    
-    console.log(this.twoLetterStates.size +  " " + this.stateMap.size);
   }
 
   // check if valid two letter US state abbreviation
