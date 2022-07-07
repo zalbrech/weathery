@@ -1,4 +1,5 @@
 <div *ngIf="isLoaded" [@flyIn] class="container bg-tran mx-auto justify-content-center">
+    <!-- Location + Date -->
     <div class="row py-6 justify-content-space-evenly align-items-baseline">
         <div class="col-6 text-end" style="color:white; font-size: 2rem;">
             <h1 class="text-right">
@@ -50,7 +51,7 @@
         <div class="col-4 justify-content-center text-center" style="color:white; font-size:1.25rem">
             <ul class="inv">
                 <li><small>humidity: </small> <span class="mx-1">{{theWeather.theHumidity}}%</span></li>
-                <li><small>wind speed: </small><span class="mx-1">{{theWeather.theWindSpeed}}mph</span></li>
+                <li><small>wind speed: </small><span class="mx-1">{{theWeather.theWindSpeed}}<small>mph</small></span></li>
             </ul>
         </div>
     </div>
@@ -61,7 +62,7 @@
         <div class="col justify-content-center text-center" *ngFor="let forecast of theWeather.theForecasts">
             <div style="font-size:2rem"> {{ forecast.day }} </div>
             <div> <img [src]=forecast.icon class="weather-icon img-fluid"></div>
-            <div class="mt-1"> {{ forecast.high }}°F  <span style="color:lightgray">{{ forecast.low }}°F</span></div>
+            <div class="mt-1"> {{ forecast.high }}°F <span style="color:lightgray">{{ forecast.low }}°F</span></div>
         </div>
     </div>
 </div>

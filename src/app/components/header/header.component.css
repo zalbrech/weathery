@@ -25,4 +25,9 @@
     margin: 0 auto;
 }
 
+.unit-toggle {
+    font-size: .8rem;
+    min-height: 1.25rem;
+}
+
 

@@ -4,11 +4,11 @@
 
 html {
     color: white;
+    font-size: 16px;
 }
 
 body{
     font-family: 'Montserrat', sans-serif;
-    font-size:16px;
     line-height:1.625;
     -webkit-font-smoothing:antialiased;
     -moz-osx-font-smoothing:grayscale
@@ -39,17 +39,17 @@ body{
 }
 
 .main-content{
-    padding-top:116px;
+    padding-top:7.25rem;
     min-height:100vh
 }
 
 .btn-primary{
-    margin-left:5px;
+    margin-left:.3125rem;
     /* min-width:45px; */
-    min-height:30px;
+    min-height:.533rem;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
-    border-radius:14px;
+    border-radius:.8rem;
 
 }
 
@@ -62,24 +62,24 @@ body{
     right:0;
     margin-left:3px;
     /* min-width:45px; */
-    min-height:30px;
+    min-height:1.9rem;
     color: #ffffff;
     border:1px solid #dadada;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
-    border-radius:14px;
+    border-radius:.8rem;
     background:#0275d8
 }
 
 .au-input{
-    line-height:30px;
+    line-height:1.9rem;
     border:2px solid #0275d8;
-    font-size:14px;
+    font-size:.8rem;
     color:#666;
-    padding: 2px 17px;
-    -webkit-border-radius:14px;
-    -moz-border-radius:14px;
-    border-radius:14px;
+    padding: .2rem 1.05rem;
+    -webkit-border-radius:.8rem;
+    -moz-border-radius:.8rem;
+    border-radius:.8rem;
     -webkit-transition:all .5s ease;
     -o-transition:all .5s ease;
     -moz-transition:all .5s ease;
@@ -111,8 +111,8 @@ body{
     margin-top: 3px;
     margin-left: 3px;
     left: 0px;
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     border-radius: 50%;
     background-color: #f7f7f7;
     -webkit-transition: left 0.15s ease-in-out, background-color .015s ease-in-out;

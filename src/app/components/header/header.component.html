@@ -6,28 +6,32 @@
           Weathery <small>(logo here)</small>
         </a>
       </div>
-  
-  
+
+
       <div class="col-lg-8 display-above">
         <app-search></app-search>
       </div>
-  
+
       <div class="col d-flex flex-column-reverse text-end px-4">
-        <div class="dropdown px-4">
+        <!-- <div class="dropdown px-4">
           <button class="btn btn-secondary dropdown-btn dropdown-toggle min-vh-50" type="button" data-bs-toggle="dropdown"
             aria-expanded="false" (click)="toggleDropdown()">
             <i class="bi bi-gear"></i>
-          </button>
-  
-          <ul class="dropdown-menu dropdown-menu-dark justify-content-end" [ngClass]="{ 'show': dropdownOpen }"
+          </button> -->
+
+        <!-- <ul class="dropdown-menu dropdown-menu-dark justify-content-end" [ngClass]="{ 'show': dropdownOpen }"
             aria-labelledby="dropdownMenuButton1">
             <li><a class="dropdown-item" href="#">Units</a></li>
             <li><a class="dropdown-item" href="#">Time</a></li>
-          </ul>
+          </ul> -->
+
+
+        <!-- </div> -->
+        <div class="btn-group mx-4">
+          <a href="#" class="unit-toggle btn btn-outline-light active" data-bs-toggle="button" aria-current="page">Imperial</a>
+          <a href="#" class="unit-toggle btn btn-outline-light">Metric</a>
         </div>
       </div>
     </div>
-    
-
   </div>
 </nav>
