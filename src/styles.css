@@ -43,7 +43,7 @@ body{
     min-height:100vh
 }
 
-.btn-primary{
+.btn {
     margin-left:.3125rem;
     /* min-width:45px; */
     min-height:.533rem;
