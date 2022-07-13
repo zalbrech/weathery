@@ -12,54 +12,16 @@
         <app-search></app-search>
       </div>
 
-      <!-- <div class="col d-flex flex-column-reverse text-end px-4"> -->
-        <!-- <div class="dropdown px-4">
-          <button class="btn btn-secondary dropdown-btn dropdown-toggle min-vh-50" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false" (click)="toggleDropdown()">
-            <i class="bi bi-gear"></i>
-          </button> -->
-
-        <!-- <ul class="dropdown-menu dropdown-menu-dark justify-content-end" [ngClass]="{ 'show': dropdownOpen }"
-            aria-labelledby="dropdownMenuButton1">
-            <li><a class="dropdown-item" href="#">Units</a></li>
-            <li><a class="dropdown-item" href="#">Time</a></li>
-          </ul> -->
-
-
-        <!-- </div> -->
-        <div class="col-auto btn-group mx-5 text-center align-items-center">
-          <div class="btn-group">
-            <input
-              mdbRadio
-              type="radio"
-              class="btn-check"
-              name="options"
-              id="option1"
-              autocomplete="off"
-              [checked]="false"
-            />
-            <label class="btn btn-outline-light unit-toggle" for="option1">Imperial (°F/mph)</label>
-            <input
-              mdbRadio
-              type="radio"
-              class="btn-check"
-              name="options"
-              id="option2"
-              autocomplete="off"
-            />
-            <label class="btn btn-outline-light unit-toggle" for="option2">Metric (°C/kph)</label>
-            <!-- <input
-              mdbRadio
-              type="radio"
-              class="btn-check"
-              name="options"
-              id="option3"
-              autocomplete="off"
-            /> -->
-          </div>
+      <div class="col-auto btn-group mx-5 text-center align-items-center">
+        <div class="btn-group">
+          <input mdbRadio type="radio" class="btn-check" name="options" id="option1" autocomplete="off"
+            [checked]="true" />
+          <label class="btn btn-outline-light unit-toggle" for="option1" (click)="setImperial()">Imperial (°F/mph)</label>
+          <input mdbRadio type="radio" class="btn-check" name="options" id="option2" autocomplete="off" />
+          <label class="btn btn-outline-light unit-toggle" for="option2" (click)="setMetric()">Metric (°C/kph)</label>
         </div>
+      </div>
 
-      <!-- </div> -->
     </div>
   </div>
 </nav>

@@ -14,18 +14,18 @@
 
     <div class="row justify-content-center">
         <div class="col text-center" style="color: white; font-size: 1rem;">
-            <b>Last updated: </b><small>{{getLocalTime()}}</small>
+            <b>Last updated: </b><small>{{ getLocalTime() }}</small>
         </div>
     </div>
     <div class="row pt-4 justify-content-center">
         <div class="col-4 align-self-center text-center" style="color:white; font-size: 3rem;">
             <img [src]="theWeather.theIconPath" class="weather-icon img-fluid" alt="">
-            {{theWeather.theCurrentTemperature}}°F
+            {{ this.theUnits === 'F' ? theWeather.F.theCurrentTemperature : theWeather.C.theCurrentTemperature }}°{{ this.theUnits }} <!-- current temperature -->
         </div>
     </div>
     <div class="container justify-content-center">
         <div class="container text-center" style="color:white; font-size: 1rem">
-            <small>{{theWeather.theDescription}}</small>
+            <small>{{ theWeather.theDescription }}</small> <!-- weather description -->
         </div>
     </div>
 
@@ -43,15 +43,15 @@
 
         <div class="col-4 justify-content-center text-center" style="color:white; font-size:1.25rem">
             <ul class="inv">
-                <li><small>feels like: </small> <span class="mx-1">{{theWeather.theFeelsLike}}°F</span></li>
-                <li><small>low: </small><span class="mx-1">{{theWeather.theLowTemperature}}°F</span></li>
-                <li><small>high: </small><span class="mx-1">{{theWeather.theHighTemperature}}°F</span></li>
+                <li><small>feels like: </small> <span class="mx-1">{{this.theUnits === 'F' ? theWeather.F.theFeelsLike : theWeather.C.theFeelsLike }}°{{ this.theUnits }}</span></li>
+                <li><small>low: </small><span class="mx-1">{{this.theUnits === 'F' ? theWeather.F.theLowTemperature : theWeather.C.theLowTemperature }}°{{ this.theUnits }}</span></li>
+                <li><small>high: </small><span class="mx-1">{{this.theUnits === 'F' ? theWeather.F.theHighTemperature : theWeather.C.theHighTemperature }}°{{ this.theUnits }}</span></li>
             </ul>
         </div>
         <div class="col-4 justify-content-center text-center" style="color:white; font-size:1.25rem">
             <ul class="inv">
                 <li><small>humidity: </small> <span class="mx-1">{{theWeather.theHumidity}}%</span></li>
-                <li><small>wind speed: </small><span class="mx-1">{{theWeather.theWindSpeed}}<small>mph</small></span></li>
+                <li><small>wind speed: </small><span class="mx-1">{{this.theUnits === 'F' ? theWeather.F.theWindSpeed : theWeather.C.theWindSpeed}}</span></li>
             </ul>
         </div>
     </div>
@@ -62,7 +62,9 @@
         <div class="col justify-content-center text-center" *ngFor="let forecast of theWeather.theForecasts">
             <div style="font-size:2rem"> {{ forecast.day }} </div>
             <div> <img [src]=forecast.icon class="weather-icon img-fluid"></div>
-            <div class="mt-1"> {{ forecast.high }}°F <span style="color:lightgray">{{ forecast.low }}°F</span></div>
+            <div *ngIf="this.theUnits === 'F'" class="mt-1"> {{ forecast.F.high }}°{{ this.theUnits}} <span style="color:lightgray">{{ forecast.F.low }}°{{ this.theUnits }}</span></div>
+
+            <div *ngIf="this.theUnits === 'C'" class="mt-1"> {{ forecast.C.high }}°{{ this.theUnits}} <span style="color:lightgray">{{ forecast.C.low }}°{{ this.theUnits }}</span></div>
         </div>
     </div>
 </div>

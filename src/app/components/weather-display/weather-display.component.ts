@@ -31,6 +31,8 @@ export class WeatherDisplayComponent implements OnInit {
 
   theIconPath: string;
 
+  theUnits: string;
+
   numRegex;
   zipRegex;
   delimiterRegex;
@@ -50,6 +52,7 @@ export class WeatherDisplayComponent implements OnInit {
     this.message = "";
     this.status = "";
     this.theIconPath = "assets/images/weather-icons/";
+    this.theUnits = "";
 
     //Regex
     this.numRegex = new RegExp(/\d/g);
@@ -66,6 +69,7 @@ export class WeatherDisplayComponent implements OnInit {
     });
 
     this.themeService.currentMessage.subscribe(message => this.message = message);
+    this.weatherService.unitMessage.subscribe(units => this.theUnits = units);
   }
 
   parseInput() {
@@ -155,14 +159,14 @@ export class WeatherDisplayComponent implements OnInit {
             city = data[0].name;
             country = data[0].country;
             if (data[0].state != undefined) {
-              if(this.dataService.isUSState(data[0].state)) { // insure that getTwoLetterAbbreviation will return a value
+              if (this.dataService.isUSState(data[0].state)) { // insure that getTwoLetterAbbreviation will return a value
                 state = this.dataService.getTwoLetterAbbreviation(data[0].state);
               } else state = "false";
-              
+
             }
 
             console.log(latitude + ", " + longitude + " " + city + "," + state + " " + country);
-            this.getOneCallWeather(latitude, longitude,city,state,country);
+            this.getOneCallWeather(latitude, longitude, city, state, country);
           }
         },
         error => {
@@ -213,76 +217,88 @@ export class WeatherDisplayComponent implements OnInit {
     this.router.navigateByUrl(`404/${value}`);
   }
 
-  getWeather(latitude: string, longitude: string) {
-    var tempDate: Date = new Date();
-    this.weatherService.getWeather(latitude, longitude).subscribe(
-      data => {
 
-        // create new Weather object based on data recieved from Open Weather API
+  //deprecated
+
+  // getWeather(latitude: string, longitude: string) {
+  //   var tempDate: Date = new Date();
+  //   this.weatherService.getWeather(latitude, longitude).subscribe(
+  //     data => {
+
+  //       // create new Weather object based on data recieved from Open Weather API
+  //       this.theWeather = new Weather();
+
+  //       // populate theWeather fields -> potential to move into separate method
+  //       this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
+  //       this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
+  //       this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
+  //       this.theWeather.theCity = data.name;
+  //       this.theWeather.theState = data.sys.state;
+  //       this.theWeather.theCountry = data.sys.country;
+  //       this.theWeather.theCurrentTemperature = Math.round(data.main.temp);
+  //       this.theWeather.theHighTemperature = Math.round(data.main.temp_max);
+  //       this.theWeather.theLowTemperature = Math.round(data.main.temp_min);
+  //       this.theWeather.theFeelsLike = Math.round(data.main.feels_like);
+  //       this.theWeather.theHumidity = Math.round(data.main.humidity);
+  //       this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunrise);
+  //       this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunset);
+  //       this.theWeather.theDescription = data.weather[0].description;
+  //       this.theWeather.theMainWeather = data.weather[0].main;
+  //       this.theWeather.theWindSpeed = data.wind.speed;
+  //       this.theWeather.theIcon = data.weather[0].icon;
+  //       this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
+
+  //       this.newMessage(this.theWeather.theIcon + "/");
+  //       this.triggerBackgroundAnimation();
+
+  //       // console.log(this.theWeather.theDate);
+  //       // console.log(this.theWeather.theTime);
+  //       // console.log(this.theWeather.theFormattedDateString);
+  //       // console.log(this.theWeather.theCity);
+  //       // console.log(this.theWeather.theState);
+  //       // console.log(this.theWeather.theCountry);
+  //       // console.log(this.theWeather.theCurrentTemperature);
+  //       // console.log(this.theWeather.theSunrise);
+  //       // console.log(this.theWeather.theSunset);
+  //       // console.log(this.theWeather.theDescription);
+  //       // console.log(this.theWeather.theMainWeather);
+  //       // console.log(this.theWeather.theWindSpeed);
+  //       // console.log(this.theWeather.theIcon);
+  //       // console.log(this.theWeather.theIconPath);
+
+  //       // console.log(this.theWeather);
+
+  //       // call flag method
+  //       this.display();
+  //     });
+  // }
+
+  getOneCallWeather(latitude: string, longitude: string, city: string, state: string, country: string) {
+    var tempDate: Date = new Date();
+    this.weatherService.getOneCallWeather(latitude, longitude).subscribe(
+      data => {
         this.theWeather = new Weather();
 
-        // populate theWeather fields -> potential to move into separate method
-        this.theWeather.theDate = new Date(Date.now() + ((tempDate.getTimezoneOffset() * 60000) + (data.timezone * 1000)));
-        this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
-        this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
-        this.theWeather.theCity = data.name;
-        this.theWeather.theState = data.sys.state;
-        this.theWeather.theCountry = data.sys.country;
-        this.theWeather.theCurrentTemperature = Math.round(data.main.temp);
-        this.theWeather.theHighTemperature = Math.round(data.main.temp_max);
-        this.theWeather.theLowTemperature = Math.round(data.main.temp_min);
-        this.theWeather.theFeelsLike = Math.round(data.main.feels_like);
-        this.theWeather.theHumidity = Math.round(data.main.humidity);
-        this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunrise);
-        this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone, data.sys.sunset);
-        this.theWeather.theDescription = data.weather[0].description;
-        this.theWeather.theMainWeather = data.weather[0].main;
-        this.theWeather.theWindSpeed = data.wind.speed;
-        this.theWeather.theIcon = data.weather[0].icon;
-        this.theWeather.theIconPath = this.theWeather.theIconPath + this.theWeather.theIcon + '.png';
-
-        this.newMessage(this.theWeather.theIcon + "/");
-        this.triggerBackgroundAnimation();
-
-        // console.log(this.theWeather.theDate);
-        // console.log(this.theWeather.theTime);
-        // console.log(this.theWeather.theFormattedDateString);
-        // console.log(this.theWeather.theCity);
-        // console.log(this.theWeather.theState);
-        // console.log(this.theWeather.theCountry);
-        // console.log(this.theWeather.theCurrentTemperature);
-        // console.log(this.theWeather.theSunrise);
-        // console.log(this.theWeather.theSunset);
-        // console.log(this.theWeather.theDescription);
-        // console.log(this.theWeather.theMainWeather);
-        // console.log(this.theWeather.theWindSpeed);
-        // console.log(this.theWeather.theIcon);
-        // console.log(this.theWeather.theIconPath);
-
-        // console.log(this.theWeather);
-
-        // call flag method
-        this.display();
-      });
-  }
-
-  getOneCallWeather(latitude: string, longitude: string, city: string, state:string, country:string) {
-    var tempDate: Date = new Date();
-    this.weatherService.getOneCallWeather(latitude,longitude).subscribe(
-      data => {
-        this.theWeather = new Weather();
-
-        this.theWeather.theDate = new Date(Date.now() + 
+        this.theWeather.theDate = new Date(Date.now() +
           ((tempDate.getTimezoneOffset() * 60000) + (data.timezone_offset * 1000)));
         this.theWeather.theTime = this.weatherService.getFormattedTime(this.theWeather.theDate);
         this.theWeather.theFormattedDateString = this.weatherService.getFormattedDate(this.theWeather.theDate);
         this.theWeather.theCity = city;
         this.theWeather.theState = state === "false" ? "" : state;
         this.theWeather.theCountry = country;
+
+        this.populateF(data);
+        this.populateC(data);
+
+        console.log(this.theWeather.F);
+        console.log(this.theWeather.C);
+
         this.theWeather.theCurrentTemperature = Math.round(data.current.temp);
         this.theWeather.theHighTemperature = Math.round(data.daily[0].temp.max);
         this.theWeather.theLowTemperature = Math.round(data.daily[0].temp.min);
         this.theWeather.theFeelsLike = Math.round(data.current.feels_like);
+        this.theWeather.theWindSpeed = data.current.wind_speed;
+
         this.theWeather.theHumidity = Math.round(data.current.humidity);
         this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone_offset, data.current.sunrise);
         this.theWeather.theSunset = this.weatherService.getFormattedUTC(data.timezone_offset, data.current.sunset);
@@ -294,12 +310,18 @@ export class WeatherDisplayComponent implements OnInit {
 
         this.theWeather.theForecasts = [];
 
-        for(let i = 1; i < data.daily.length; i++) {
-          let forecast:any = {
-            day: this.weatherService.getDayString((this.theWeather.theDate.getDay()+i) % 7),
+        for (let i = 1; i < data.daily.length; i++) {
+          let forecast: any = {
+            day: this.weatherService.getDayString((this.theWeather.theDate.getDay() + i) % 7),
             icon: this.theIconPath + data.daily[i].weather[0].icon + '.png',
-            high: Math.round(data.daily[i].temp.max),
-            low: Math.round(data.daily[i].temp.min),
+            F: {
+              high: this.theUnits === 'F' ? Math.round(data.daily[i].temp.max) : this.convertCelsiusToFarenheit(data.daily[i].temp.max),
+              low: this.theUnits === 'F' ? Math.round(data.daily[i].temp.max) : this.convertCelsiusToFarenheit(data.daily[i].temp.min),
+            },
+            C: {
+              high: this.theUnits === 'C' ? data.daily[i].temp.max : this.convertFarenheitToCelsius(data.daily[i].temp.max),
+              low: this.theUnits === 'C' ? data.daily[i].temp.min : this.convertFarenheitToCelsius(data.daily[i].temp.min)
+            }
           };
           this.theWeather.theForecasts.push(forecast);
         }
@@ -338,4 +360,58 @@ export class WeatherDisplayComponent implements OnInit {
     );
   }
 
+  populateF(data: any) {
+    if (this.theUnits === 'F') {
+      this.theWeather.F.theCurrentTemperature = Math.round(data.current.temp);
+      this.theWeather.F.theHighTemperature = Math.round(data.daily[0].temp.max);
+      this.theWeather.F.theLowTemperature = Math.round(data.daily[0].temp.min);
+      this.theWeather.F.theFeelsLike = Math.round(data.current.feels_like);
+      this.theWeather.F.theWindSpeed = data.current.wind_speed + 'mph';
+    } else {
+      this.theWeather.F.theCurrentTemperature = this.convertCelsiusToFarenheit(data.current.temp);
+      this.theWeather.F.theHighTemperature = this.convertCelsiusToFarenheit(data.daily[0].temp.max);
+      this.theWeather.F.theLowTemperature = this.convertCelsiusToFarenheit(data.daily[0].temp.min);
+      this.theWeather.F.theFeelsLike = this.convertCelsiusToFarenheit(data.current.feels_like);
+      this.theWeather.F.theWindSpeed = this.convertKphToMph(data.current.wind_speed) + 'mph';
+    }
+  }
+
+  populateC(data: any) {
+    if (this.theUnits === 'C') {
+      this.theWeather.C.theCurrentTemperature = Math.round(data.current.temp);
+      this.theWeather.C.theHighTemperature = Math.round(data.daily[0].temp.max);
+      this.theWeather.C.theLowTemperature = Math.round(data.daily[0].temp.min);
+      this.theWeather.C.theFeelsLike = Math.round(data.current.feels_like);
+      this.theWeather.C.theWindSpeed = data.current.wind_speed + 'kph';
+    } else {
+      this.theWeather.C.theCurrentTemperature = this.convertFarenheitToCelsius(data.current.temp);
+      this.theWeather.C.theHighTemperature = this.convertFarenheitToCelsius(data.daily[0].temp.max);
+      this.theWeather.C.theLowTemperature = this.convertFarenheitToCelsius(data.daily[0].temp.min);
+      this.theWeather.C.theFeelsLike = this.convertFarenheitToCelsius(data.current.feels_like);
+      this.theWeather.C.theWindSpeed = this.convertMphToKph(data.current.wind_speed) + 'kph';
+    }
+
+  }
+
+  convertFarenheitToCelsius(temp: number) {
+    return Math.round((temp - 32) * 5/9);
+  }
+
+  convertCelsiusToFarenheit(temp: number) {
+    return Math.round((temp * 9/5) + 32);
+  }
+
+  convertMphToKph(speed: number) {
+    return Math.round(speed * 1.609);
+  }
+
+  convertKphToMph(speed: number) {
+    return Math.round(speed / 1.609);
+  }
+
+}
+
+interface Numbers {
+  F?: any,
+  C?: any;
 }
