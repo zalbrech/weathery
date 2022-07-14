@@ -36,15 +36,8 @@ export class WeatherService {
     'Thu', 'Fri', 'Sat'];
 
   constructor(private httpClient: HttpClient) {
-    console.log('***********************\nin WeatherService constructor\n');
     this.unitSource = new BehaviorSubject<string>('F');
     this.unitMessage = this.unitSource.asObservable();
-  }
-
-  setUnits(newUnits: string) {
-    let tempUnits = newUnits === 'IMPERIAL' ? 'F' : 'C';
-    this.theUnits = newUnits;
-    this.unitSource.next(tempUnits);
   }
 
   getCoordinates(input: string): Observable<any> {
@@ -59,21 +52,6 @@ export class WeatherService {
     return this.httpClient.get<any>(searchUrl);
   }
 
-  // deprecated
-  // getWeather(latitude:string, longitude:string): Observable<any> {
-  //   console.log('searching weather for ' + latitude + ", " + longitude);
-  //   let cords = 'lat='+ latitude + '&lon=' + longitude; 
-  //   const searchUrl = `${this.baseUrl}${cords}${this.theApiKey}${this.unitPrefix}${this.theUnits}`;
-
-  //   // debugging only
-  //   // this.httpClient.get(searchUrl).subscribe(
-  //   //   data => {
-  //   //     console.log(data);
-  //   //   });
-
-  //   return this.httpClient.get<any>(searchUrl);
-  // }
-
   // retrieve weather data from OpenWeather OneCall API
   getOneCallWeather(latitude: string, longitude: string): Observable<any> {
     console.log('searching weather for ' + latitude + ", " + longitude);
@@ -82,11 +60,10 @@ export class WeatherService {
 
     // debugging only
     // console.log(searchUrl);
-
-    this.httpClient.get(searchUrl).subscribe(
-      data => {
-        console.log(data);
-      });
+    // this.httpClient.get(searchUrl).subscribe(
+    //   data => {
+    //     console.log(data);
+    //   });
 
     return this.httpClient.get<any>(searchUrl);
   }
@@ -142,13 +119,26 @@ export class WeatherService {
     return result;
   }
 
+  // convert number to day of the week string abbreviation
+  getDayString(theDay: number): string {
+    return this.dayStrings[theDay];
+  }
+
+  setUnits(newUnits: string) {
+    let tempUnits = newUnits === 'IMPERIAL' ? 'F' : 'C';
+    this.theUnits = newUnits;
+    this.unitSource.next(tempUnits);
+  }
+
+  // ** private methods **
+
   // helper method to convert 0 indexed number into month string
-  getMonthString(theMonth: number): string {
+  private getMonthString(theMonth: number): string {
     return this.monthStrings[theMonth];
   }
 
   // helper method to append proper ordinal number suffix
-  getDayOfWeek(theDay: number): string {
+  private getDayOfWeek(theDay: number): string {
     var theSuffix: string = '';
     if (theDay % 100 > 10 && theDay % 100 < 21) {
       theSuffix = 'th';
@@ -164,12 +154,6 @@ export class WeatherService {
 
     return theDay + theSuffix;
   }
-
-  // convert number to day of the week string abbreviation
-  getDayString(theDay: number): string {
-    return this.dayStrings[theDay];
-  }
-
 }
 
 

@@ -30,7 +30,7 @@ export class BackgroundComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.themeService.currentMessage.subscribe(theMessage => this.message = theMessage);
+    this.themeService.backgroundMessage.subscribe(theMessage => this.message = theMessage);
     this.themeService.animationMessage.subscribe(animationValue => this.animationValue = animationValue);
     console.log(this.animationValue);
     this.isLoaded = true;
