@@ -9,12 +9,12 @@ import { WeatherService } from 'src/app/services/weather.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  dropdownOpen = false;
+
   theUnits = 'IMPERIAL'
   private unitSource;
   unitMessage;
+
   constructor(private weatherService: WeatherService) { 
-    console.log('in header constructor');
     this.unitSource = new BehaviorSubject<string>(this.theUnits); 
     this.unitMessage = this.unitSource.asObservable();
   }
@@ -26,13 +26,11 @@ export class HeaderComponent implements OnInit {
     if(this.theUnits === 'IMPERIAL') return;
     this.theUnits = 'IMPERIAL';
     this.weatherService.setUnits(this.theUnits);
-    // console.log("theUnits are " + this.theUnits);
   }
 
   setMetric() {
     if(this.theUnits === 'METRIC') return;
     this.theUnits = 'METRIC';
     this.weatherService.setUnits(this.theUnits);
-    // console.log('theUnits are ' + this.theUnits);
   }
 }

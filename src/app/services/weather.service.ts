@@ -11,8 +11,6 @@ export class WeatherService {
 
   private theApiKey = '&appid=d54c5e6f719f6b43909a22379060606b';
 
-  private baseUrl = 'http://api.openweathermap.org/data/2.5/weather?';
-
   private geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=';
 
   private oneCallUrl = 'http://api.openweathermap.org/data/3.0/onecall?';
@@ -76,6 +74,7 @@ export class WeatherService {
   //   return this.httpClient.get<any>(searchUrl);
   // }
 
+  // retrieve weather data from OpenWeather OneCall API
   getOneCallWeather(latitude: string, longitude: string): Observable<any> {
     console.log('searching weather for ' + latitude + ", " + longitude);
     let cords = 'lat=' + latitude + '&lon=' + longitude;
@@ -123,6 +122,7 @@ export class WeatherService {
     }
   }
 
+  // format UTC time
   getFormattedUTC(theTimezone: number, value: number): string {
     var tempDate: Date = new Date((value * 1000));
     var userOffset = tempDate.getTimezoneOffset() * 60000;

@@ -12,7 +12,6 @@ import { WeatherDisplayComponent } from './components/weather-display/weather-di
 import { HttpClientModule } from '@angular/common/http';
 import { SearchComponent } from './components/search/search.component';
 import { Weather } from './classes/weather';
-import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { BackgroundComponent } from './components/background/background.component';
@@ -33,7 +32,6 @@ const routes: Routes = [
     AppComponent,
     WeatherDisplayComponent,
     SearchComponent,
-    ThemeToggleComponent,
     HeaderComponent,
     FooterComponent,
     BackgroundComponent,

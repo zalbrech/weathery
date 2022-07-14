@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   title = 'weathery';
 
   
-  constructor(private router: Router, private themeService: ThemeService, private renderer: Renderer2) {}
+  constructor(private router: Router) {}
   
   ngOnInit() {
     this.router.navigateByUrl('/search');

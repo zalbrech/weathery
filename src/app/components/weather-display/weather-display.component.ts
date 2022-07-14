@@ -159,7 +159,7 @@ export class WeatherDisplayComponent implements OnInit {
             city = data[0].name;
             country = data[0].country;
             if (data[0].state != undefined) {
-              if (this.dataService.isUSState(data[0].state)) { // insure that getTwoLetterAbbreviation will return a value
+              if (this.dataService.isUSState(data[0].state)) { // ensure that getTwoLetterAbbreviation will return a value
                 state = this.dataService.getTwoLetterAbbreviation(data[0].state);
               } else state = "false";
 
@@ -287,17 +287,9 @@ export class WeatherDisplayComponent implements OnInit {
         this.theWeather.theState = state === "false" ? "" : state;
         this.theWeather.theCountry = country;
 
+        // populate Imperial and Metric units
         this.populateF(data);
         this.populateC(data);
-
-        console.log(this.theWeather.F);
-        console.log(this.theWeather.C);
-
-        this.theWeather.theCurrentTemperature = Math.round(data.current.temp);
-        this.theWeather.theHighTemperature = Math.round(data.daily[0].temp.max);
-        this.theWeather.theLowTemperature = Math.round(data.daily[0].temp.min);
-        this.theWeather.theFeelsLike = Math.round(data.current.feels_like);
-        this.theWeather.theWindSpeed = data.current.wind_speed;
 
         this.theWeather.theHumidity = Math.round(data.current.humidity);
         this.theWeather.theSunrise = this.weatherService.getFormattedUTC(data.timezone_offset, data.current.sunrise);
@@ -310,13 +302,14 @@ export class WeatherDisplayComponent implements OnInit {
 
         this.theWeather.theForecasts = [];
 
+        // populate forecast array
         for (let i = 1; i < data.daily.length; i++) {
           let forecast: any = {
             day: this.weatherService.getDayString((this.theWeather.theDate.getDay() + i) % 7),
             icon: this.theIconPath + data.daily[i].weather[0].icon + '.png',
             F: {
               high: this.theUnits === 'F' ? Math.round(data.daily[i].temp.max) : this.convertCelsiusToFarenheit(data.daily[i].temp.max),
-              low: this.theUnits === 'F' ? Math.round(data.daily[i].temp.max) : this.convertCelsiusToFarenheit(data.daily[i].temp.min),
+              low: this.theUnits === 'F' ? Math.round(data.daily[i].temp.min) : this.convertCelsiusToFarenheit(data.daily[i].temp.min),
             },
             C: {
               high: this.theUnits === 'C' ? data.daily[i].temp.max : this.convertFarenheitToCelsius(data.daily[i].temp.max),
@@ -326,33 +319,11 @@ export class WeatherDisplayComponent implements OnInit {
           this.theWeather.theForecasts.push(forecast);
         }
 
-        // debugging / testing
-        // for(var entry of this.theWeather.theForecasts) {
-        //   console.log(entry.day);
-        //   console.log(entry.icon);
-        //   console.log(entry.high);
-        //   console.log(entry.low);
-        // }
-
+        // update message passed to BackgroundComponent
         this.newMessage(this.theWeather.theIcon + "/");
+
+        // trigger backgroundComponent animation
         this.triggerBackgroundAnimation();
-
-        // console.log(this.theWeather.theDate);
-        // console.log(this.theWeather.theTime);
-        // console.log(this.theWeather.theFormattedDateString);
-        // console.log(this.theWeather.theCity);
-        // console.log(this.theWeather.theState);
-        // console.log(this.theWeather.theCountry);
-        // console.log(this.theWeather.theCurrentTemperature);
-        // console.log(this.theWeather.theSunrise);
-        // console.log(this.theWeather.theSunset);
-        // console.log(this.theWeather.theDescription);
-        // console.log(this.theWeather.theMainWeather);
-        // console.log(this.theWeather.theWindSpeed);
-        // console.log(this.theWeather.theIcon);
-        // console.log(this.theWeather.theIconPath);
-
-        // console.log(this.theWeather);
 
         // call flag method
         this.display();
@@ -360,6 +331,7 @@ export class WeatherDisplayComponent implements OnInit {
     );
   }
 
+  // populate Imperial units
   populateF(data: any) {
     if (this.theUnits === 'F') {
       this.theWeather.F.theCurrentTemperature = Math.round(data.current.temp);
@@ -376,6 +348,7 @@ export class WeatherDisplayComponent implements OnInit {
     }
   }
 
+  // populate Metric units
   populateC(data: any) {
     if (this.theUnits === 'C') {
       this.theWeather.C.theCurrentTemperature = Math.round(data.current.temp);
@@ -394,11 +367,11 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   convertFarenheitToCelsius(temp: number) {
-    return Math.round((temp - 32) * 5/9);
+    return Math.round((temp - 32) * 5 / 9);
   }
 
   convertCelsiusToFarenheit(temp: number) {
-    return Math.round((temp * 9/5) + 32);
+    return Math.round((temp * 9 / 5) + 32);
   }
 
   convertMphToKph(speed: number) {
@@ -407,11 +380,7 @@ export class WeatherDisplayComponent implements OnInit {
 
   convertKphToMph(speed: number) {
     return Math.round(speed / 1.609);
+
   }
 
-}
-
-interface Numbers {
-  F?: any,
-  C?: any;
 }

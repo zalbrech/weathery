@@ -11,7 +11,7 @@ import { WeatherDisplayComponent } from '../weather-display/weather-display.comp
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private weatherDisplay: WeatherDisplayComponent) {}
+  constructor(private router: Router) {}
   
   ngOnInit(): void {}
 

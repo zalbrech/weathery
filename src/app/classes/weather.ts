@@ -1,8 +1,3 @@
-export interface Numbers {
-    F:number,
-    C:number;
-  }
-
 export class Weather {
     public F = {
         theCurrentTemperature:0,
@@ -20,10 +15,6 @@ export class Weather {
         theWindSpeed: ''
     }
 
-    public theCurrentTemp = {
-        F:0,
-        C:0,
-    }
     public theDate: Date = new Date();
     public theTime: string = '';
     public theFormattedDateString: string = '';

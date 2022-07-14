@@ -21,8 +21,8 @@ import {
     ]
 })
 export class BackgroundComponent implements OnInit {
-  message: string = "";
-  animationValue: boolean = false;
+  message: string = ""; // string containing path to background image
+  animationValue: boolean = false; // flag to trigger @fade animation
   isLoaded: boolean;
 
   constructor(public themeService: ThemeService) {
@@ -34,38 +34,5 @@ export class BackgroundComponent implements OnInit {
     this.themeService.animationMessage.subscribe(animationValue => this.animationValue = animationValue);
     console.log(this.animationValue);
     this.isLoaded = true;
-    // this.display();
   }
-
-  // TODO: delete after further animation testing
-  // display() {
-  //   console.log("BACKGROUND DISPLAY CALLED");
-  //   // this.toggleState();
-  //   this.isLoaded = true;
-  //   // this.status = true;
-  //   // this.reset();
-  // }
-
-  // reset() {
-  //   console.log("BACKGROUND RESET CALLED");
-  //   this.isLoaded = false;
-  //   this.status = false;
-  //   console.log("BACKGROUND STATUS = " + this.status);
-  //   this.display();
-  // }
-
-  
-  // for debugging only to check triggering and timing of animation
-
-  // html -> (@fade.start)="onStart($any($event))
-  // onStart(event: Event) {
-  //   console.log('animation starting ' + new Date());
-  // }
-
-  // html -> (@fade.done)="onDone($any($event))
-  // onDone(event: Event) {
-  //   console.log("animation finished " + new Date());
-  //   console.log(event);
-  //   // this.toggleState();
-  // }
 }
