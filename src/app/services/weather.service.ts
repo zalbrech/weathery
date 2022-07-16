@@ -11,9 +11,9 @@ export class WeatherService {
 
   private theApiKey = '&appid=d54c5e6f719f6b43909a22379060606b';
 
-  private geoUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=';
+  private geoUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=';
 
-  private oneCallUrl = 'http://api.openweathermap.org/data/3.0/onecall?';
+  private oneCallUrl = 'https://api.openweathermap.org/data/3.0/onecall?';
 
   private unitPrefix = '&units=';
 
