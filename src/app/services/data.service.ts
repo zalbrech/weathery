@@ -1,9 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+
+  
 
   // List of two letter US state abbreviations
   private twoLetterStates:Set<string>;
@@ -11,7 +15,7 @@ export class DataService {
   // Map <k,v> = <full name, two letter abbreviation>
   private stateMap:Map<string,string>;
   
-  constructor() { 
+  constructor(private httpClient: HttpClient) { 
     this.twoLetterStates = new Set<string>([
       'AL', 'AK', 
       'AZ', 'AR', 

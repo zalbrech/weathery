@@ -9,9 +9,13 @@ import { HeaderComponent } from '../components/header/header.component';
 })
 export class WeatherService {
 
+  private googleBaseUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=';
+  private googleApiKey = '&key=AIzaSyB1vlGaFYk2PYrsSeSyUYxfLFE7UdkqMSY';
+
   private theApiKey = '&appid=d54c5e6f719f6b43909a22379060606b';
 
   private geoUrl = 'https://api.openweathermap.org/geo/1.0/direct?q=';
+
 
   private oneCallUrl = 'https://api.openweathermap.org/data/3.0/onecall?';
 
@@ -22,6 +26,11 @@ export class WeatherService {
   private theLimit = '&limit=1';
 
   private theExclusions = '&exclude=minutely,hourly,alerts';
+
+  private zipBaseUrl = 'https://app.zipcodebase.com/api/v1/search?';
+  private zipAPIKey = 'apikey=d3d13780-0706-11ed-9f70-d7269a0b63b2';
+  private zipCodePrefix = '&codes='
+  private zipCountry = '&country=US'
 
   public theWeather = new Observable<Weather>();
 
@@ -44,13 +53,29 @@ export class WeatherService {
     let searchUrl = `${this.geoUrl}${input}${this.theLimit}${this.theApiKey}${this.unitPrefix}${this.theUnits}`;
 
     // debugging only
-    // this.httpClient.get<any>(searchUrl).subscribe(
-    //   data => {
-    //     console.log(data);
-    //   });
+    this.httpClient.get<any>(searchUrl).subscribe(
+      data => {
+        console.log(data);
+      });
 
     return this.httpClient.get<any>(searchUrl);
   }
+
+  // getZipCoordinates(input: string): Observable<any> {
+  //   console.log('zip input is ' + input);
+  //   const searchUrl = `${this.zipBaseUrl}${this.zipAPIKey}${this.zipCodePrefix}${input}${this.zipCountry}`;
+
+  //   // debugging only
+  //   this.httpClient.get<any>(searchUrl).subscribe(
+  //     data => {
+  //       console.log(data);
+  //       let s = JSON.stringify(data);
+  //       console.log(JSON.parse(s));
+  //     });
+
+
+  //   return this.httpClient.get<any>(searchUrl);
+  // }
 
   // retrieve weather data from OpenWeather OneCall API
   getOneCallWeather(latitude: string, longitude: string): Observable<any> {
@@ -64,6 +89,19 @@ export class WeatherService {
     //   data => {
     //     console.log(data);
     //   });
+
+    return this.httpClient.get<any>(searchUrl);
+  }
+
+  getZipCoordinates(input: string): Observable<any> {
+    const searchUrl = `${this.googleBaseUrl}${input}${this.googleApiKey}`;
+
+    // debugging only
+    console.log(searchUrl);
+    this.httpClient.get(searchUrl).subscribe(
+      data => {
+        console.log(data);
+      });
 
     return this.httpClient.get<any>(searchUrl);
   }
