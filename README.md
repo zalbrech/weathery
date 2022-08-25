@@ -1,27 +1,32 @@
 # Weathery
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
+Weathery is an open source desktop web application that uses the Angular framework and is hosted on Heroku
 
-## Development server
+It can be accessed here:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+https://weatheryapplication.herokuapp.com/
 
-## Code scaffolding
+(The initial load can sometimes be slow if the site hasn't been visited recently)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+All weather data is sourced using OpenWeatherMap's public API (https://openweathermap.org)
 
-## Build
+## Install and run locally
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+To run Weathery locally:
 
-## Running unit tests
+1) Download Microsoft Visual Studio Code (https://code.visualstudio.com/)
+2) Install Node JS (https://nodejs.org/en/)
+3) Clone the repository
+    - https://github.com/zalbrech/weathery.git
+    - gh repo clone zalbrech/weathery (Github CLI)
+4) Open the local repository 
+5) In the terminal use 'npm install' to install dependencies in the node_modeules folder
+6) In the terminal, use command 'ng serve' or 'ng serve --open' to launch the application on localhost
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### To-Do
 
-## Running end-to-end tests
+Currently Weathery is only formatted for display on large screens. A refactor is in progress to format the application for all screen sizes
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
