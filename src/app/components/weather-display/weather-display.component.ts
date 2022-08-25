@@ -144,7 +144,8 @@ export class WeatherDisplayComponent implements OnInit {
   }
 
   // search for weather by zip code (USA only)
-  // duplicate method needed since returned data is not in Array 
+  // duplicate method needed due to using Google Maps Geocoding API
+  // OpenWeather Geocoding API does not return a state for the given location
   private handleZipSearch(theZipCode: string) {
     this.isLoaded = false;
     this.status = '';
@@ -153,7 +154,7 @@ export class WeatherDisplayComponent implements OnInit {
     try {
       this.weatherService.getZipCoordinates(theZipCode).subscribe(
         data => {
-          if(data === undefined) {
+          if (data === undefined) {
             this.displayNotFound('undefined data', theZipCode);
           } else {
             latitude = data.results[0].geometry.location.lat;
@@ -164,16 +165,14 @@ export class WeatherDisplayComponent implements OnInit {
           }
           this.getOneCallWeather(latitude, longitude, city, state, country);
 
-        }, 
+        },
         error => {
           this.displayNotFound(error, theZipCode);
         }
-
-        
       );
-      }catch (error: any) {
-        this.displayNotFound(error, theZipCode);
-      };
+    } catch (error: any) {
+      this.displayNotFound(error, theZipCode);
+    };
   }
 
   // use OpenWeather Geocode API to retrieve longitude and latitude from input search string,

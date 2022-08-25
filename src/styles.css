@@ -4,7 +4,7 @@
 
 html {
     color: white;
-    font-size: 16px;
+    font-size: 1vmax;
 }
 
 body{
@@ -132,6 +132,10 @@ body{
 
 .bg-tran {
     background-color: transparent
+}
+
+.weather-display {
+    padding-top: 8rem;
 }
 
 footer {
