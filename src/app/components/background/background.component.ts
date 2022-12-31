@@ -15,7 +15,7 @@ import {
       trigger('fade', [
         transition('* => *', [
           style({ opacity: 0 }),
-          animate("3s ease-in", style({ opacity: 1 }))
+          animate("3.5s ease-in", style({ opacity: 1 }))
         ])
       ])
     ]

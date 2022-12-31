@@ -35,16 +35,16 @@ export class DataService {
       'NM', 'NY',
       'NC', 'ND', 
       'OH', 'OK',
-      'PA', 'RI', 
-      'SC', 'SD',
-      'TN', 'TX', 
-      'UT', 'VT',
-      'VA', 'WA', 
-      'WV', 'WI', 
-      'WY', 'DC', 
-      'AS', 'GU', 
-      'MP', 'PR', 
-      'VI' 
+      'OR', 'PA', 
+      'RI', 'SC', 
+      'SD', 'TN', 
+      'TX', 'UT', 
+      'VT','VA', 
+      'WA', 'WV', 
+      'WI', 'WY', 
+      'DC', 'AS', 
+      'GU', 'MP', 
+      'PR', 'VI' 
     ]);
 
     this.stateMap = new Map<string,string>([
@@ -66,16 +66,16 @@ export class DataService {
       ['New Mexico','NM'],['New York','NY'],
       ['North Carolina','NC'],['North Dakota','ND'],
       ['Ohio','OH'],['Oklahoma','OK'],
-      ['Pennsylvania','PA'],['Rhode Island','RI'],
-      ['South Carolina','SC'],['South Dakota','SD'],
-      ['Tennessee','TN'],['Texas','TX'],
-      ['Utah','UT'],['Vermont','VT'],
-      ['Virginia','VA'],['Washington','WA'],
-      ['West Virginia','WV'],['Wisconsin','WI'],
-      ['Wyoming','WI'],['District of Columbia', 'DC'],
-      ['American Samoa','AS'],['Guam','GU'],
-      ['Northern Mariana Islands','MP'],['Puerto Rico','PR'],
-      ['United States Virgin Islands','VI']
+      ['Oregon', 'OR'], ['Pennsylvania','PA'],
+      ['Rhode Island','RI'],['South Carolina','SC'],
+      ['South Dakota','SD'],['Tennessee','TN'],
+      ['Texas','TX'],['Utah','UT'],
+      ['Vermont','VT'],['Virginia','VA'],
+      ['Washington','WA'],['West Virginia','WV'],
+      ['Wisconsin','WI'],['Wyoming','WI'],
+      ['District of Columbia', 'DC'],['American Samoa','AS'],
+      ['Guam','GU'],['Northern Mariana Islands','MP'],
+      ['Puerto Rico','PR'],['United States Virgin Islands','VI']
     ]);
   }
 

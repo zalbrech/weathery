@@ -15,8 +15,8 @@ import { HttpClient } from '@angular/common/http';
   animations: [
     trigger('flyIn', [
       transition(':enter', [
-        style({ transform: 'translateY(200%)' }),
-        animate('1.2s .75s ease-in-out', style({ transform: 'translateY(0%)' }))
+        style({ transform: 'translateY(200%)' ,opacity: '0'},),
+        animate('1.3s .85s ease-in-out', style({ transform: 'translateY(0%)' , opacity: '1'}))
       ])
     ])
   ]
